@@ -1,12 +1,21 @@
-version: '2'
+version: '3'
 
 services:
-  db:
-    image: 'postgres:13.1-alpine'
+
+   db:
     container_name: db
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - app-db:/var/lib/postgresql/data
     environment:
+      - POSTGRES_DB=mightygram
       - POSTGRES_USER=mightygram
       - POSTGRES_PASSWORD=mightygram
-      - POSTGRES_DB=mightygram
-    ports:
-      - '5432:5432'
+
+volumes:
+  app-db:
+    driver: local
+
