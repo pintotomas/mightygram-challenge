@@ -1,6 +1,7 @@
 package com.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Post extends AuditableEntity {
 
     @Id
@@ -25,5 +27,10 @@ public class Post extends AuditableEntity {
     @Column(length = 1500)
     @Size(max = 1500)
     private String photoUrl;
+
+    public Post(String description, String photoUrl) {
+        this.description = description;
+        this.photoUrl = photoUrl;
+    }
 
 }
