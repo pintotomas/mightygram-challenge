@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -52,6 +53,7 @@ public class PostControllerTest {
         post = new Post("description", "url");
         LocalDateTime localDateTime = LocalDateTime.of(2021, 10, 30, 16, 39);
         post.setCreated(localDateTime);
+        post.setUserPostLikes(Arrays.asList());
     }
 
     @Test
@@ -98,7 +100,8 @@ public class PostControllerTest {
         Assertions.assertEquals("description", json.get("description"));
         Assertions.assertEquals("url", json.get("photoUrl"));
         Assertions.assertEquals("2021-10-30T16:39:00", json.get("created"));
-        Assertions.assertEquals(4, json.length());
+        Assertions.assertEquals(0, json.get("likeCount"));
+        Assertions.assertEquals(5, json.length());
     }
 
 
