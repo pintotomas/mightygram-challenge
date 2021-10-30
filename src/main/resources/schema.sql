@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "user_post";
+DROP TABLE IF EXISTS "user_post_likes";
 DROP TABLE IF EXISTS "users";
 DROP TABLE IF EXISTS "post";
 
@@ -17,11 +17,11 @@ CREATE TABLE "post" (
   "photo_url" varchar(2048) NOT NULL
 );
 
-CREATE TABLE "user_post" (
-  "id_user" bigint,
-  "id_post" bigint
+CREATE TABLE "user_post_likes" (
+  "user_id" bigint,
+  "post_id" bigint
 );
 
-ALTER TABLE "user_post" ADD FOREIGN KEY ("id_user") REFERENCES "users" ("id");
+ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-ALTER TABLE "user_post" ADD FOREIGN KEY ("id_post") REFERENCES "post" ("id");
+ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("post_id") REFERENCES "post" ("id");

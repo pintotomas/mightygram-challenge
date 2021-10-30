@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -27,6 +26,8 @@ public class PostResponseDto {
     @NotNull
     private String created;
 
+    private Integer likeCount;
+
     //TODO could add time since creation
 
     public PostResponseDto(Post post) {
@@ -34,5 +35,6 @@ public class PostResponseDto {
         this.description = post.getDescription();
         this.photoUrl = post.getPhotoUrl();
         this.created = Dateutils.toTimeStamp(post.getCreated());
+        this.likeCount = post.getUserPostLikes().size();
     }
 }

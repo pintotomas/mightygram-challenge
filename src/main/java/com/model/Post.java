@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,4 +34,6 @@ public class Post extends AuditableEntity {
         this.photoUrl = photoUrl;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+    private List<UserPostLike> userPostLikes;
 }

@@ -168,116 +168,116 @@ VALUES      (10,
              'Manūjān',
              'http://dummyimage.com/127x162.png/dddddd/000000');
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (1,
              1);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (1,
              3);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (1,
              4);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (1,
              6);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (2,
              1);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (2,
              2);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (2,
              8);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (3,
              8);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (3,
              4);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (3,
              5);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (4,
              7);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (4,
              9);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (5,
              1);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (5,
              2);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (5,
              3);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (5,
              4);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (5,
              6);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (5,
              7);
 
-INSERT INTO user_post
-            (id_user,
-             id_post)
+INSERT INTO user_post_likes
+            (user_id,
+             post_id)
 VALUES      (5,
              8);
