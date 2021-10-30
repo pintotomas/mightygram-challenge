@@ -10,6 +10,29 @@ on:
     branches: [ main ]
 
 jobs:
+
+  container-job:
+    runs-on: ubuntu-latest
+
+    container: mightygram
+
+    services:
+
+      postgres:
+
+        image: postgres
+
+        env:
+          POSTGRES_DB: mightygram
+          POSTGRES_USER: mightygram
+          POSTGRES_PASSWORD: mightygram
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
   build:
 
     runs-on: ubuntu-latest
@@ -22,5 +45,10 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
         cache: maven
+    - env: 
+          # The hostname used to communicate with the PostgreSQL service container
+          POSTGRES_HOST: postgres
+          # The default PostgreSQL port
+          POSTGRES_PORT: 5432
     - name: Build with Maven
       run: mvn -B package --file pom.xml
