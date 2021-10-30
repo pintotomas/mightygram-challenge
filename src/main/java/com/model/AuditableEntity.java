@@ -19,7 +19,7 @@ import java.util.Date;
 )
 @Getter
 @Setter
-public abstract class AuditEntity implements Serializable {
+public abstract class AuditableEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     @CreatedDate
