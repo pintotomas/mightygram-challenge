@@ -4,8 +4,12 @@ import com.dto.PostResponseDto;
 import com.services.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.Min;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -24,4 +28,14 @@ public class PostController {
         return ResponseEntity.ok(new PostResponseDto(postService.findById(id)));
     }
 
+    @GetMapping("/all")
+    @ResponseBody
+    public ResponseEntity<Page<PostResponseDto>> getAllPostsPaginated(
+            @RequestParam("page") @Min(1) Integer page,
+            @RequestParam("size") @Min(1) Integer size
+    ) {
+
+        log.info("Requested to get posts page {} size {}", page, size);
+        return ResponseEntity.ok(postService.findAllPaginated(page, size).map(post -> new PostResponseDto(post)));
+    }
 }
