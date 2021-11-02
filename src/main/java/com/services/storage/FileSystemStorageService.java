@@ -3,6 +3,7 @@ package com.services.storage;
 
 import com.exceptions.StorageException;
 import com.exceptions.StorageFileNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -17,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
+@Slf4j
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
@@ -30,6 +32,7 @@ public class FileSystemStorageService implements StorageService {
     public void store(MultipartFile file, String filename) {
         try {
             if (file.isEmpty()) {
+                log.error("File is empty");
                 throw new StorageException("Failed to store empty file.");
             }
             Path destinationFile = this.rootLocation.resolve(
@@ -37,6 +40,7 @@ public class FileSystemStorageService implements StorageService {
                     .normalize().toAbsolutePath();
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
                 // This is a security check
+                log.error("Cannot store file outside current directory");
                 throw new StorageException(
                         "Cannot store file outside current directory.");
             }
@@ -45,6 +49,7 @@ public class FileSystemStorageService implements StorageService {
             }
         }
         catch (IOException e) {
+            log.error("Failed to store file {} ", e.getLocalizedMessage());
             throw new StorageException("Failed to store file.", e);
         }
     }
@@ -64,12 +69,14 @@ public class FileSystemStorageService implements StorageService {
                 return resource;
             }
             else {
+                log.error("Could not read file: {}" , filename);
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
 
             }
         }
         catch (MalformedURLException e) {
+            log.error("Could not read file: {}, cause: {}" , filename, e.getLocalizedMessage());
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }
@@ -83,13 +90,13 @@ public class FileSystemStorageService implements StorageService {
                 Files.delete(file);
             }
             else {
+                log.error("Could not delete file {}" , filename);
                 throw new StorageFileNotFoundException(
                         "Could not delete file: " + filename);
             }
         }
-        catch (MalformedURLException e) {
-            throw new StorageFileNotFoundException("Could not delete file: " + filename, e);
-        } catch (IOException e) {
+        catch (IOException e) {
+            log.error("Could not delete file: {}, cause: {}", filename, e.getLocalizedMessage());
             throw new StorageFileNotFoundException("Could not delete file: " + filename, e);
         }
     }
@@ -101,6 +108,7 @@ public class FileSystemStorageService implements StorageService {
             Files.createDirectories(rootLocation);
         }
         catch (IOException e) {
+            log.error("Could not initialize storage: {}", e.getLocalizedMessage());
             throw new StorageException("Could not initialize storage", e);
         }
     }

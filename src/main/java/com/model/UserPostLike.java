@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 public class UserPostLike implements Serializable {
-    // This entity represents when a user likes a post
+    // This entity represents when a user likes a post from a certain user
     // I used a separated entity because the relationship
     // could have state like the time of like, or a comment
 

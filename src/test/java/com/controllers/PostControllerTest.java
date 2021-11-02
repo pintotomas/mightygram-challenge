@@ -39,13 +39,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PostControllerTest {
 
     @InjectMocks
-    PostController postController;
+    private PostController postController;
 
     @Mock
-    PostService postService;
+    private PostService postService;
 
     @Captor
-    ArgumentCaptor<Long> longArgumentCaptor;
+    private ArgumentCaptor<Long> longArgumentCaptor;
 
     private MockMvc mockMvc;
 

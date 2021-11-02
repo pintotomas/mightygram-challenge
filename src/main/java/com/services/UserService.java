@@ -29,6 +29,12 @@ public class UserService {
     }
 
     public User assignParent(UserParenthoodRequestDto userParenthoodRequestDto) {
+
+        // Assigns the child a parent
+        // If both are equal, throws UserCantParentSelfException
+        // If child already had a parent, throws UserAlreadyHasAParentException
+        // If any of the user is not found, throws UserNotFoundException
+
         Long childId = userParenthoodRequestDto.getChildId();
         Long parentId = userParenthoodRequestDto.getParentId();
         if (childId.equals(parentId)) {

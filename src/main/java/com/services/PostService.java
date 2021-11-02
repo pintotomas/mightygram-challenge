@@ -43,13 +43,19 @@ public class PostService {
 
     public Post findByIdAndOwner(Long id, Long ownerId) {
         return postRepository.findByIdAndOwnerId(id, ownerId).orElseThrow(
-                () -> new PostNotFoundException("Post with id " + id + " not found " + " for owner id " + ownerId)
+                () -> {
+                    log.error("Post {} with owner {} not found", id, ownerId);
+                    throw new PostNotFoundException("Post with id " + id + " not found " + " for owner id " + ownerId);
+                }
         );
     }
 
     public Post findById(Long id) {
         return postRepository.findById(id).orElseThrow(
-                () -> new PostNotFoundException("Post with id " + id + " not found")
+                () -> {
+                    log.error("Post {} not found", id);
+                    throw new PostNotFoundException("Post with id " + id + " not found");
+                }
         );
     }
 
@@ -61,6 +67,13 @@ public class PostService {
     //Annotate as transactional so we don't have to add post.addUserPostLike()
     @Transactional
     public Post like(Long postId, UserPostLikeRequestDto userPostLikeRequestDto) {
+
+        // Gives a like from the likerId in userPostLikeRequestDto to
+        // the Post postId with owner ownerId in userPostLikeRequestDto
+        // Throws:
+        // UserNotFoundException if any of the users are not found
+        // UserAlreadyLikesPostException if the like already exists
+
         User owner = userService.findById(userPostLikeRequestDto.getOwnerId());
         Post post = this.findByIdAndOwner(postId, owner.getId());
         User liker = userService.findById(userPostLikeRequestDto.getLikerId());
@@ -80,6 +93,11 @@ public class PostService {
     }
 
     public Long likeCount(Post post, User owner) {
+
+        // Counts all the likes the owner of the post has
+        // Also, if this post was inherited from the owner parent,
+        // the likeCount from the parent post is added up
+
         Optional<User> parent = owner.getParent();
         ArrayList<Long> userIds = new ArrayList<>();
         userIds.add(owner.getId());
@@ -98,6 +116,13 @@ public class PostService {
     //Annotate as transactional so we don't have to add post.removeUserPostLike()
     @Transactional
     public Post dislike(Long postId, UserPostLikeRequestDto userPostLikeRequestDto) {
+
+        // Gives a dislike from the likerId in userPostLikeRequestDto to
+        // the Post postId with owner ownerId in userPostLikeRequestDto
+        // Throws:
+        // UserNotFoundException if any of the users are not found
+        // UserDoesNotLikePostException if the user likerId didnt like the post before
+
         if (!userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
                 (userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId())) {
             log.error
@@ -114,6 +139,15 @@ public class PostService {
 
     @Transactional
     public Post create(PostCreateRequestDto postCreateRequestDto, MultipartFile photo) {
+
+        // Creates a new post with the photo and the description specified. The owner of the post
+        // will be the one specified in postCreateRequestDto. Additionally if the user has adopted other users,
+        // for each one of them a Post will be created with them being the owners of each post.
+        // Throws:
+        // UserNotFoundException if any of the users are not found
+        // StorageException if there is any problem with the persistence of the photo
+        // If after the persistence of the photo an error occurs in the db, an event is raised to
+        // delete the saved photo.
 
         User parent = userService.findById(postCreateRequestDto.getOwnerId());
         String fileName = FileUtils.generateFileName(photo.getName());

@@ -20,7 +20,6 @@ public class EventHandlerService {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_ROLLBACK)
     public void onPostCreatedEvent(PostCreatedEvent postCreatedEvent) {
         log.info("Post suffered rollback. Deleting local saved file.. {}", postCreatedEvent.getFilename());
-
         storageService.deleteResource(postCreatedEvent.getFilename());
     }
 }

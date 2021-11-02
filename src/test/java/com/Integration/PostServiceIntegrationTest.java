@@ -32,7 +32,7 @@ public class PostServiceIntegrationTest {
     private PostRepository postRepository;
 
     @MockBean
-    StorageService storageService;
+    private StorageService storageService;
 
     @Test
     void testIntegrationCreateParentHoodWhenChildMakesPostParentDoesntAdoptPost() {
