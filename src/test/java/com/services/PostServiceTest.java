@@ -134,7 +134,7 @@ public class PostServiceTest {
                         (1L, 1L, 1L)).thenReturn(true);
         postService.dislike(1L, userPostLikeRequestDto);
         verify(userPostLikeRepository, times(1)).
-                deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeOwnerId
+                deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
                         (longArgumentCaptor.capture(), longArgumentCaptor.capture(), longArgumentCaptor.capture());
     }
 

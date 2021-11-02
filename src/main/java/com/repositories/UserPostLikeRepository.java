@@ -10,5 +10,5 @@ public interface UserPostLikeRepository extends JpaRepository<UserPostLike, User
     boolean existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId(Long likerId, Long postId, Long ownerId);
 
     //This method deletes a like from user with likerId belonging to postId owned by the user ownerId
-    void deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeOwnerId(Long likerId, Long postId, Long ownerId);
+    void deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId(Long likerId, Long postId, Long ownerId);
 }

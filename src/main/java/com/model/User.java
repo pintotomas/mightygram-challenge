@@ -36,7 +36,6 @@ public class User extends AuditableEntity {
     }
 
     @OneToOne
-    @Column(name = "parent_id")
     private User parent;
 
     public Optional<User> getParent() {

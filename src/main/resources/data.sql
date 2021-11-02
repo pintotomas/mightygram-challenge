@@ -300,28 +300,32 @@ VALUES      (5,
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id,)
+             post_id,
+             owner_id)
 VALUES      (5,
              4,
              6);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, )
+             post_id,
+              owner_id)
 VALUES      (5,
              6,
              6);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, )
+             post_id,
+              owner_id)
 VALUES      (5,
              7,
              6);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, )
+             post_id,
+              owner_id)
 VALUES      (5,
              8,
              6);

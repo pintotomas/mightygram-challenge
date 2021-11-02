@@ -15,4 +15,7 @@ public class PostCreateRequestDto {
     @NotEmpty
     @Size(max = 1500)
     private String description;
+
+    @NotNull
+    private Long ownerId;
 }

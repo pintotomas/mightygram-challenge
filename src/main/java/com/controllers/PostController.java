@@ -47,7 +47,7 @@ public class PostController {
     @GetMapping("/all")
     @ResponseBody
     public ResponseEntity<Page<PostResponseDto>> getAllPostsPaginated(
-            @RequestParam("page") @Min(1) Integer page,
+            @RequestParam("page") @Min(0) Integer page,
             @RequestParam("size") @Min(1) Integer size
     ) {
         log.info("Requested to get posts page {} size {}", page, size);

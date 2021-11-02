@@ -80,12 +80,15 @@ public class PostService {
                     + " does not like post " + postId + " from owner " + userPostLikeRequestDto.getOwnerId());
         }
 
-        userPostLikeRepository.deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeOwnerId
+        userPostLikeRepository.deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
                 (userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId());
         return postRepository.getById(postId);
     }
 
+    @Transactional
     public Post create(PostCreateRequestDto postCreateRequestDto, MultipartFile photo) {
+        //TODO if rollback, delete file
+        User owner = userService.findById(postCreateRequestDto.getOwnerId());
         String fileName = FileUtils.generateFileName(photo.getName());
         storageService.store(photo, fileName);
         Post post = new Post(postCreateRequestDto.getDescription(), fileName);

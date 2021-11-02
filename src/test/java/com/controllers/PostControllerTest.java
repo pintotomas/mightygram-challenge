@@ -260,9 +260,6 @@ public class PostControllerTest {
     @Test
     public void whenCreatePostWithJpgPicture_thenUploadOk() throws Exception {
         when(postService.create(any(), any())).thenReturn(post);
-        PostCreateRequestDto postCreateRequestDto =
-                new PostCreateRequestDto();
-        postCreateRequestDto.setDescription("Description");
 
         MockMultipartFile file =
                 new MockMultipartFile(
@@ -271,16 +268,14 @@ public class PostControllerTest {
                 MockMvcRequestBuilders.multipart(postController.URL_MAPPING_POSTS)
                         .file("photo", file.getBytes())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
-                        .param("description", "description");
+                        .param("description", "description")
+                        .param("ownerId", "1");
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void whenCreatePostWithPngPicture_thenUploadOk() throws Exception {
         when(postService.create(any(), any())).thenReturn(post);
-        PostCreateRequestDto postCreateRequestDto =
-                new PostCreateRequestDto();
-        postCreateRequestDto.setDescription("Description");
 
         MockMultipartFile file =
                 new MockMultipartFile(
@@ -289,7 +284,9 @@ public class PostControllerTest {
                 MockMvcRequestBuilders.multipart(postController.URL_MAPPING_POSTS)
                         .file("photo", file.getBytes())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
-                        .param("description", "description");
+                        .param("description", "description")
+                        .param("ownerId", "1");
+
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
