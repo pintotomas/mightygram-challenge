@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class UserPostLikeRequestDto {
+public class UserParenthoodRequestDto {
 
     @NotNull
     @Min(1)
-    private Long likerId;
+    private Long parentId;
 
     @NotNull
     @Min(1)
-    private Long ownerId;
+    private Long childId;
 }

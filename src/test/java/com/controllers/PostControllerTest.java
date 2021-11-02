@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.model.Post;
+import com.model.User;
 import com.services.PostService;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -56,7 +57,7 @@ public class PostControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(postController)
                 .setControllerAdvice(new PostControllerAdvisor())
                 .build();
-        post = new Post("description", "url");
+        post = new Post("description", "url", new User(), null);
         LocalDateTime localDateTime = LocalDateTime.of(2021, 10, 30, 16, 39);
         post.setCreated(localDateTime);
         post.setUserPostLikes(Arrays.asList());
@@ -127,7 +128,8 @@ public class PostControllerTest {
     void testLikeUnknownPostIdShouldReturnNotFoundHttpResponseStatus() throws Exception {
         when(postService.like(anyLong(), any())).thenThrow(PostNotFoundException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -143,7 +145,8 @@ public class PostControllerTest {
     void testLikeUnknownUserIdShouldReturnNotFoundHttpResponseStatus() throws Exception {
         when(postService.like(anyLong(), any())).thenThrow(UserNotFoundException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -159,7 +162,8 @@ public class PostControllerTest {
     void testAlreadyLikedPostShouldReturnPreconditionFailedResponseStatus() throws Exception {
         when(postService.like(anyLong(), any())).thenThrow(UserAlreadyLikesPostException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -175,7 +179,8 @@ public class PostControllerTest {
     void testNotLikedPostShouldReturnPreconditionFailedResponseStatus() throws Exception {
         when(postService.dislike(anyLong(), any())).thenThrow(UserDoesNotLikePostException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -191,7 +196,8 @@ public class PostControllerTest {
     void testLikeAlreadyLikedPostReturnsErrorResponseDto() throws Exception {
         when(postService.like(anyLong(), any())).thenThrow(UserAlreadyLikesPostException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -212,7 +218,8 @@ public class PostControllerTest {
     void testDislikeNotLikedPostReturnsErrorResponseDto() throws Exception {
         when(postService.dislike(anyLong(), any())).thenThrow(UserDoesNotLikePostException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -233,7 +240,8 @@ public class PostControllerTest {
     void testDislikeUnknownUserReturnsErrorResponseDto() throws Exception {
         when(postService.dislike(anyLong(), any())).thenThrow(UserNotFoundException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -253,9 +261,6 @@ public class PostControllerTest {
     @Test
     public void whenCreatePostWithJpgPicture_thenUploadOk() throws Exception {
         when(postService.create(any(), any())).thenReturn(post);
-        PostCreateRequestDto postCreateRequestDto =
-                new PostCreateRequestDto();
-        postCreateRequestDto.setDescription("Description");
 
         MockMultipartFile file =
                 new MockMultipartFile(
@@ -264,16 +269,14 @@ public class PostControllerTest {
                 MockMvcRequestBuilders.multipart(postController.URL_MAPPING_POSTS)
                         .file("photo", file.getBytes())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
-                        .param("description", "description");
+                        .param("description", "description")
+                        .param("ownerId", "1");
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void whenCreatePostWithPngPicture_thenUploadOk() throws Exception {
         when(postService.create(any(), any())).thenReturn(post);
-        PostCreateRequestDto postCreateRequestDto =
-                new PostCreateRequestDto();
-        postCreateRequestDto.setDescription("Description");
 
         MockMultipartFile file =
                 new MockMultipartFile(
@@ -282,7 +285,9 @@ public class PostControllerTest {
                 MockMvcRequestBuilders.multipart(postController.URL_MAPPING_POSTS)
                         .file("photo", file.getBytes())
                         .contentType(MediaType.MULTIPART_FORM_DATA)
-                        .param("description", "description");
+                        .param("description", "description")
+                        .param("ownerId", "1");
+
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

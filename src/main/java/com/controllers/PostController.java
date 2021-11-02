@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -45,18 +41,21 @@ public class PostController {
     @ResponseBody
     public ResponseEntity<PostResponseDto> getById(@PathVariable Long id) {
         log.info("Requested to get post with id {}", id);
-        return ResponseEntity.ok(new PostResponseDto(postService.findById(id)));
+        Post post = postService.findById(id);
+        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post, post.getOwner())));
     }
 
     @GetMapping("/all")
     @ResponseBody
     public ResponseEntity<Page<PostResponseDto>> getAllPostsPaginated(
-            @RequestParam("page") @Min(1) Integer page,
+            @RequestParam("page") @Min(0) Integer page,
             @RequestParam("size") @Min(1) Integer size
     ) {
         log.info("Requested to get posts page {} size {}", page, size);
         return ResponseEntity.ok(postService.findAllPaginated(page, size).map(post ->
-            new PostResponseDto(post)));
+
+            new PostResponseDto(post, postService.likeCount(post, post.getOwner()))
+        ));
     }
 
     @PostMapping("/{id}/like")
@@ -66,8 +65,9 @@ public class PostController {
             @RequestBody @Validated UserPostLikeRequestDto userPostLikeRequestDto
     ) {
         log.info("Requested to like post {} from user {}",
-                id, userPostLikeRequestDto.getUserId());
-        return ResponseEntity.ok(new PostResponseDto(postService.like(id, userPostLikeRequestDto)));
+                id, userPostLikeRequestDto.getLikerId());
+        Post post = postService.like(id, userPostLikeRequestDto);
+        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post, post.getOwner())));
     }
 
     @PostMapping("/{id}/dislike")
@@ -77,8 +77,9 @@ public class PostController {
             @RequestBody @Validated UserPostLikeRequestDto userPostLikeRequestDto
     ) {
         log.info("Requested to dislike post {} from user {}",
-                id, userPostLikeRequestDto.getUserId());
-        return ResponseEntity.ok(new PostResponseDto(postService.dislike(id, userPostLikeRequestDto)));
+                id, userPostLikeRequestDto.getLikerId());
+        Post post = postService.dislike(id, userPostLikeRequestDto);
+        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post, post.getOwner())));
     }
 
     @PostMapping
@@ -90,6 +91,6 @@ public class PostController {
             MultipartFile photo,
             @ModelAttribute @Validated PostCreateRequestDto postCreateRequestDto) {
         Post post = postService.create(postCreateRequestDto, photo);
-        return ResponseEntity.ok(new PostResponseDto(post));
+        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post, post.getOwner())));
     }
 }

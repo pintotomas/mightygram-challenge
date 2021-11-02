@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -26,11 +27,18 @@ public class User extends AuditableEntity {
     @Size(max = 50)
     private String username;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPostLikeId.userId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPostLikeId.likerId")
     private List<UserPostLike> userPostLikes;
 
     public User(String username) {
         this.username = username;
         this.userPostLikes = new ArrayList<>();
+    }
+
+    @OneToOne
+    private User parent;
+
+    public Optional<User> getParent() {
+        return Optional.ofNullable(parent);
     }
 }
