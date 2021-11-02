@@ -42,7 +42,7 @@ public class PostController {
     public ResponseEntity<PostResponseDto> getById(@PathVariable Long id) {
         log.info("Requested to get post with id {}", id);
         Post post = postService.findById(id);
-        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post, post.getOwner())));
+        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post)));
     }
 
     @GetMapping("/all")
@@ -54,7 +54,7 @@ public class PostController {
         log.info("Requested to get posts page {} size {}", page, size);
         return ResponseEntity.ok(postService.findAllPaginated(page, size).map(post ->
 
-            new PostResponseDto(post, postService.likeCount(post, post.getOwner()))
+            new PostResponseDto(post, postService.likeCount(post))
         ));
     }
 
@@ -67,7 +67,7 @@ public class PostController {
         log.info("Requested to like post {} from user {}",
                 id, userPostLikeRequestDto.getLikerId());
         Post post = postService.like(id, userPostLikeRequestDto);
-        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post, post.getOwner())));
+        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post)));
     }
 
     @PostMapping("/{id}/dislike")
@@ -79,7 +79,7 @@ public class PostController {
         log.info("Requested to dislike post {} from user {}",
                 id, userPostLikeRequestDto.getLikerId());
         Post post = postService.dislike(id, userPostLikeRequestDto);
-        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post, post.getOwner())));
+        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post)));
     }
 
     @PostMapping
@@ -91,6 +91,6 @@ public class PostController {
             MultipartFile photo,
             @ModelAttribute @Validated PostCreateRequestDto postCreateRequestDto) {
         Post post = postService.create(postCreateRequestDto, photo);
-        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post, post.getOwner())));
+        return ResponseEntity.ok(new PostResponseDto(post, postService.likeCount(post)));
     }
 }

@@ -3,7 +3,6 @@ package com.Integration;
 import com.dto.PostCreateRequestDto;
 import com.dto.UserParenthoodRequestDto;
 import com.dto.UserPostLikeRequestDto;
-import com.exceptions.PostNotFoundException;
 import com.model.Post;
 import com.repositories.PostRepository;
 import com.services.PostService;
@@ -85,9 +84,9 @@ public class PostServiceIntegrationTest {
         userPostLikeRequestDto.setLikerId(6L);
         parentPost = postService.like(parentPost.getId(), userPostLikeRequestDto);
 
-        Assertions.assertEquals(1L, postService.likeCount(parentPost, userService.findById(1L)));
+        Assertions.assertEquals(1L, postService.likeCount(parentPost));
         Assertions.assertEquals
-                (1L, postService.likeCount(postService.findById(parentPost.getId() + 1), userService.findById(2L)));
+                (1L, postService.likeCount(postService.findById(parentPost.getId() + 1)));
     }
 
     @Test
@@ -107,9 +106,9 @@ public class PostServiceIntegrationTest {
         userPostLikeRequestDto.setLikerId(6L);
         Post childPost = postService.like(parentPost.getId() + 1, userPostLikeRequestDto);
 
-        Assertions.assertEquals(0L, postService.likeCount(parentPost, userService.findById(1L)));
+        Assertions.assertEquals(0L, postService.likeCount(parentPost));
         Assertions.assertEquals
-                (1L, postService.likeCount(postService.findById(childPost.getId()), userService.findById(2L)));
+                (1L, postService.likeCount(postService.findById(childPost.getId())));
     }
 
     @Test
@@ -130,8 +129,8 @@ public class PostServiceIntegrationTest {
         parentPost = postService.like(parentPost.getId(), userPostLikeRequestDto);
         postService.dislike(parentPost.getId(), userPostLikeRequestDto);
 
-        Assertions.assertEquals(0L, postService.likeCount(parentPost, userService.findById(1L)));
+        Assertions.assertEquals(0L, postService.likeCount(parentPost));
         Assertions.assertEquals
-                (0L, postService.likeCount(postService.findById(parentPost.getId() + 1), userService.findById(2L)));
+                (0L, postService.likeCount(postService.findById(parentPost.getId() + 1)));
     }
 }

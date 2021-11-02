@@ -91,7 +91,7 @@ public class PostService {
         return postRepository.save(post);
     }
 
-    public Long likeCount(Post post, User owner) {
+    public Long likeCount(Post post) {
 
         // Counts all the likes the owner of the post has
         // Also, if this post was inherited from the owner parent,
