@@ -39,7 +39,7 @@ tr:nth-child(even) {
 
 <a name='layout1'/><h4>Main Layout</h4>
 <div class='svgContainer'>
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'   width='608' height='718' viewBox='0 0 608 718' >
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'   width='480' height='606' viewBox='0 0 480 606' >
   <script type='text/ecmascript'>
   <![CDATA[
   function hghl(el) { for ( var i in el ){ var elem = document.getElementById(el[i]); if ( elem != null ) elem.setAttribute('class','highlight');  }  }
@@ -263,8 +263,8 @@ tr:nth-child(even) {
 
 <!-- == Shape Colors == -->
 <!-- == Desktop == -->
-<rect x='1' y='1' width='606' height='716' rx='8' ry='8' style='fill:url(#layoutBgA); stroke:#aaa; stroke-width:1px;' />
-<rect x='1' y='1' width='606' height='716' rx='8' ry='8' style='fill:url(#layoutBgTr);' />
+<rect x='1' y='1' width='478' height='604' rx='8' ry='8' style='fill:url(#layoutBgA); stroke:#aaa; stroke-width:1px;' />
+<rect x='1' y='1' width='478' height='604' rx='8' ry='8' style='fill:url(#layoutBgTr);' />
 
 <!-- == Legend == -->
 <g transform='translate(10,10)'>
@@ -276,100 +276,93 @@ tr:nth-child(even) {
 </g>
 
 <g transform='translate(0,110)'>
-<!-- == Group 'users2' == -->
-<rect class='grp' style='fill:#E1EBFC;stroke:#9EADC7' x='96' y='157' width='416' height='386' />
-<text x='108' y='173'>users2</text>
-<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='108' y='177' width='392' height='2' />
+<!-- == Group 'users' == -->
+<rect class='grp' style='fill:#E1EBFC;stroke:#9EADC7' x='32' y='45' width='416' height='386' />
+<text x='44' y='61'>users</text>
+<rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='44' y='65' width='392' height='2' />
 
 <!-- == Fk 'post_post_parent_post_id_fkey' == -->
-<path id='post_post_parent_post_id_fkey'  onmouseover="hghl(['post_post_parent_post_id_fkey','public.post.parent_post_id','public.post.id'])" onmouseout="uhghl(['post_post_parent_post_id_fkey','public.post.parent_post_id','public.post.id'])" transform='translate(8,0)' class='unhighlight' d='M 496,336L 504,336Q 512,336 512,344L 512,360Q 512,368 504,368L 488,368Q 480,368 480,360L 480,352' >
+<path id='post_post_parent_post_id_fkey'  onmouseover="hghl(['post_post_parent_post_id_fkey','public.post.parent_post_id','public.post.id'])" onmouseout="uhghl(['post_post_parent_post_id_fkey','public.post.parent_post_id','public.post.id'])" transform='translate(8,0)' class='unhighlight' d='M 432,224L 440,224Q 448,224 448,232L 448,248Q 448,256 440,256L 424,256Q 416,256 416,248L 416,240' >
 	<title>Fk post_parent_post_id_fkey
 post ref post ( parent_post_id -&gt; id )</title>
 </path>
-<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 496,336L 504,336Q 512,336 512,344L 512,360Q 512,368 504,368L 488,368Q 480,368 480,360L 480,352' ><title>Fk post_parent_post_id_fkey
+<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 432,224L 440,224Q 448,224 448,232L 448,248Q 448,256 440,256L 424,256Q 416,256 416,248L 416,240' ><title>Fk post_parent_post_id_fkey
 post ref post ( parent_post_id -&gt; id )</title></path>
-<text x='506' y='331' transform='rotate(0 506,331)' class='relName'>parent_post_id</text>
+<text x='442' y='219' transform='rotate(0 442,219)' class='relName'>parent_post_id</text>
 <!-- == Fk 'post_post_owner_id_fkey' == -->
-<path id='post_post_owner_id_fkey'  onmouseover="hghl(['post_post_owner_id_fkey','public.post.owner_id','public.users.id'])" onmouseout="uhghl(['post_post_owner_id_fkey','public.post.owner_id','public.users.id'])" transform='translate(8,0)' class='unhighlight' d='M 336,208L 224,208' >
+<path id='post_post_owner_id_fkey'  onmouseover="hghl(['post_post_owner_id_fkey','public.post.owner_id','public.users.id'])" onmouseout="uhghl(['post_post_owner_id_fkey','public.post.owner_id','public.users.id'])" transform='translate(8,0)' class='unhighlight' d='M 272,96L 160,96' >
 	<title>Fk post_owner_id_fkey
 post ref users ( owner_id -&gt; id )</title>
 </path>
-<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1u)'    d='M 336,208L 224,208' ><title>Fk post_owner_id_fkey
+<path transform='translate(8,0)' marker-start='url(#foot1)' marker-end='url(#arrow1u)'    d='M 272,96L 160,96' ><title>Fk post_owner_id_fkey
 post ref users ( owner_id -&gt; id )</title></path>
-<text x='283' y='203' transform='rotate(0 283,203)' class='relName'>owner_id</text>
+<text x='219' y='91' transform='rotate(0 219,91)' class='relName'>owner_id</text>
 <!-- == Fk 'user_post_likes_user_post_likes_post_id_fkey' == -->
-<path id='user_post_likes_user_post_likes_post_id_fkey'  onmouseover="hghl(['user_post_likes_user_post_likes_post_id_fkey','public.user_post_likes.post_id','public.post.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_post_id_fkey','public.user_post_likes.post_id','public.post.id'])" transform='translate(8,0)' class='unhighlight' d='M 224,432L 224,376Q 224,368 232,368L 360,368Q 368,368 368,360L 368,352' >
+<path id='user_post_likes_user_post_likes_post_id_fkey'  onmouseover="hghl(['user_post_likes_user_post_likes_post_id_fkey','public.user_post_likes.post_id','public.post.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_post_id_fkey','public.user_post_likes.post_id','public.post.id'])" transform='translate(8,0)' class='unhighlight' d='M 160,320L 160,264Q 160,256 168,256L 296,256Q 304,256 304,248L 304,240' >
 	<title>Fk user_post_likes_post_id_fkey
 user_post_likes ref post ( post_id -&gt; id )</title>
 </path>
-<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 224,432L 224,376Q 224,368 232,368L 360,368Q 368,368 368,360L 368,352' ><title>Fk user_post_likes_post_id_fkey
+<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 160,320L 160,264Q 160,256 168,256L 296,256Q 304,256 304,248L 304,240' ><title>Fk user_post_likes_post_id_fkey
 user_post_likes ref post ( post_id -&gt; id )</title></path>
-<text x='227' y='430' transform='rotate(270 227,430)' class='relName'>post_id</text>
+<text x='163' y='318' transform='rotate(270 163,318)' class='relName'>post_id</text>
 <!-- == Fk 'user_post_likes_user_post_likes_liker_id_fkey' == -->
-<path id='user_post_likes_user_post_likes_liker_id_fkey'  onmouseover="hghl(['user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','public.users.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','public.users.id'])" transform='translate(8,0)' class='unhighlight' d='M 128,432L 128,320' >
+<path id='user_post_likes_user_post_likes_liker_id_fkey'  onmouseover="hghl(['user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','public.users.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','public.users.id'])" transform='translate(8,0)' class='unhighlight' d='M 64,320L 64,208' >
 	<title>Fk user_post_likes_liker_id_fkey
 user_post_likes ref users ( liker_id -&gt; id )</title>
 </path>
-<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 128,432L 128,320' ><title>Fk user_post_likes_liker_id_fkey
+<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 64,320L 64,208' ><title>Fk user_post_likes_liker_id_fkey
 user_post_likes ref users ( liker_id -&gt; id )</title></path>
-<text x='131' y='430' transform='rotate(270 131,430)' class='relName'>liker_id</text>
+<text x='67' y='318' transform='rotate(270 67,318)' class='relName'>liker_id</text>
 <!-- == Fk 'users_users2_parent_id_fkey' == -->
-<path id='users_users2_parent_id_fkey'  onmouseover="hghl(['users_users2_parent_id_fkey','public.users.parent_id','public.users.id'])" onmouseout="uhghl(['users_users2_parent_id_fkey','public.users.parent_id','public.users.id'])" transform='translate(8,0)' class='unhighlight' d='M 224,304L 232,304Q 240,304 240,312L 240,328Q 240,336 232,336L 216,336Q 208,336 208,328L 208,320' >
+<path id='users_users2_parent_id_fkey'  onmouseover="hghl(['users_users2_parent_id_fkey','public.users.parent_id','public.users.id'])" onmouseout="uhghl(['users_users2_parent_id_fkey','public.users.parent_id','public.users.id'])" transform='translate(8,0)' class='unhighlight' d='M 160,192L 168,192Q 176,192 176,200L 176,216Q 176,224 168,224L 152,224Q 144,224 144,216L 144,208' >
 	<title>Fk users2_parent_id_fkey
 users ref users ( parent_id -&gt; id )</title>
 </path>
-<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 224,304L 232,304Q 240,304 240,312L 240,328Q 240,336 232,336L 216,336Q 208,336 208,328L 208,320' ><title>Fk users2_parent_id_fkey
+<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 160,192L 168,192Q 176,192 176,200L 176,216Q 176,224 168,224L 152,224Q 144,224 144,216L 144,208' ><title>Fk users2_parent_id_fkey
 users ref users ( parent_id -&gt; id )</title></path>
-<text x='234' y='299' transform='rotate(0 234,299)' class='relName'>parent_id</text>
+<text x='170' y='187' transform='rotate(0 170,187)' class='relName'>parent_id</text>
 <!-- == Table 'post' == -->
-<rect id='depict_public.post' class='entity' style='stroke:none;' x='352' y='184' width='144' height='160' rx='8' ry='8' />
-<path d='M 352 212 L 352 192 Q 352 184 360 184 L 488 184 Q 496 184 496 192 L 496 212 L352 212 ' style='fill:url(#tbg_BED3F4);stroke-width:0;' />
-<rect class='entity' x='352' y='184' width='144' height='160' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
-<a xlink:href='#public.post'><text x='405' y='203' >post</text><title>Table public.post</title></a>
-  <use id='nn' x='354' y='221' xlink:href='#nn'/><use id='pk' x='354' y='220' xlink:href='#pk'><title>Pk post_pkey ( id ) </title></use><text id='public.post.id' x='371' y='231' onmouseover="hghl(['post_post_parent_post_id_fkey','public.post.parent_post_id','user_post_likes_user_post_likes_post_id_fkey','public.user_post_likes.post_id'])" onmouseout="uhghl(['post_post_parent_post_id_fkey','public.post.parent_post_id','user_post_likes_user_post_likes_post_id_fkey','public.user_post_likes.post_id'])">id</text><title>id
-* bigint</title><a xlink:href='#public.post'><use id='ref' x='484' y='220' xlink:href='#ref'/><title>Referred by post ( parent_post_id -&gt; id ) 
+<rect id='depict_public.post' class='entity' style='stroke:none;' x='288' y='72' width='144' height='160' rx='8' ry='8' />
+<path d='M 288 100 L 288 80 Q 288 72 296 72 L 424 72 Q 432 72 432 80 L 432 100 L288 100 ' style='fill:url(#tbg_BED3F4);stroke-width:0;' />
+<rect class='entity' x='288' y='72' width='144' height='160' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
+<a xlink:href='#public.post'><text x='341' y='91' >post</text><title>Table public.post</title></a>
+  <use id='nn' x='290' y='109' xlink:href='#nn'/><use id='pk' x='290' y='108' xlink:href='#pk'><title>Pk post_pkey ( id ) </title></use><text id='public.post.id' x='307' y='119' onmouseover="hghl(['post_post_parent_post_id_fkey','public.post.parent_post_id','user_post_likes_user_post_likes_post_id_fkey','public.user_post_likes.post_id'])" onmouseout="uhghl(['post_post_parent_post_id_fkey','public.post.parent_post_id','user_post_likes_user_post_likes_post_id_fkey','public.user_post_likes.post_id'])">id</text><title>id
+* bigint</title><a xlink:href='#public.post'><use id='ref' x='420' y='108' xlink:href='#ref'/><title>Referred by post ( parent_post_id -&gt; id ) 
 Referred by user_post_likes ( post_id -&gt; id ) </title></a>
-  <text id='public.post.created' x='371' y='247'>created</text><title>created
-timestamp</title><text x='493' y='244' text-anchor='end' class='colType'>d</text>  <text id='public.post.updated' x='371' y='263'>updated</text><title>updated
-timestamp</title><text x='493' y='260' text-anchor='end' class='colType'>d</text>  <use id='nn' x='354' y='269' xlink:href='#nn'/><text id='public.post.description' x='371' y='279'>description</text><title>description
-* varchar(1500)</title><text x='493' y='276' text-anchor='end' class='colType'>t</text>  <use id='nn' x='354' y='285' xlink:href='#nn'/><text id='public.post.filename' x='371' y='295'>filename</text><title>filename
-* varchar(2048)</title><text x='493' y='292' text-anchor='end' class='colType'>t</text>  <use id='nn' x='354' y='301' xlink:href='#nn'/><text id='public.post.owner_id' x='371' y='311' onmouseover="hghl(['post_post_owner_id_fkey','public.users.id'])" onmouseout="uhghl(['post_post_owner_id_fkey','public.users.id'])">owner_id</text><title>owner_id
-* bigint</title><a xlink:href='#public.post'><use id='fk' x='484' y='300' xlink:href='#fk'/><title>References users ( owner_id -&gt; id ) </title></a>
-  <text id='public.post.parent_post_id' x='371' y='327' onmouseover="hghl(['post_post_parent_post_id_fkey','public.post.id'])" onmouseout="uhghl(['post_post_parent_post_id_fkey','public.post.id'])">parent_post_id</text><title>parent_post_id
-bigint</title><a xlink:href='#public.post'><use id='fk' x='484' y='316' xlink:href='#fk'/><title>References post ( parent_post_id -&gt; id ) </title></a>
+  <text id='public.post.created' x='307' y='135'>created</text><title>created
+timestamp</title><text x='429' y='132' text-anchor='end' class='colType'>d</text>  <text id='public.post.updated' x='307' y='151'>updated</text><title>updated
+timestamp</title><text x='429' y='148' text-anchor='end' class='colType'>d</text>  <use id='nn' x='290' y='157' xlink:href='#nn'/><text id='public.post.description' x='307' y='167'>description</text><title>description
+* varchar(1500)</title><text x='429' y='164' text-anchor='end' class='colType'>t</text>  <use id='nn' x='290' y='173' xlink:href='#nn'/><text id='public.post.filename' x='307' y='183'>filename</text><title>filename
+* varchar(2048)</title><text x='429' y='180' text-anchor='end' class='colType'>t</text>  <use id='nn' x='290' y='189' xlink:href='#nn'/><text id='public.post.owner_id' x='307' y='199' onmouseover="hghl(['post_post_owner_id_fkey','public.users.id'])" onmouseout="uhghl(['post_post_owner_id_fkey','public.users.id'])">owner_id</text><title>owner_id
+* bigint</title><a xlink:href='#public.post'><use id='fk' x='420' y='188' xlink:href='#fk'/><title>References users ( owner_id -&gt; id ) </title></a>
+  <text id='public.post.parent_post_id' x='307' y='215' onmouseover="hghl(['post_post_parent_post_id_fkey','public.post.id'])" onmouseout="uhghl(['post_post_parent_post_id_fkey','public.post.id'])">parent_post_id</text><title>parent_post_id
+bigint</title><a xlink:href='#public.post'><use id='fk' x='420' y='204' xlink:href='#fk'/><title>References post ( parent_post_id -&gt; id ) </title></a>
 
 <!-- == Table 'user_post_likes' == -->
-<rect id='depict_public.user_post_likes' class='entity' style='stroke:none;' x='112' y='440' width='128' height='80' rx='8' ry='8' />
-<path d='M 112 468 L 112 448 Q 112 440 120 440 L 232 440 Q 240 440 240 448 L 240 468 L112 468 ' style='fill:url(#tbg_BED3F4);stroke-width:0;' />
-<rect class='entity' x='112' y='440' width='128' height='80' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
-<a xlink:href='#public.user_post_likes'><text x='118' y='459' >user_post_likes</text><title>Table public.user_post_likes</title></a>
-  <text id='public.user_post_likes.liker_id' x='131' y='487' onmouseover="hghl(['user_post_likes_user_post_likes_liker_id_fkey','public.users.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_liker_id_fkey','public.users.id'])">liker_id</text><title>liker_id
-bigint</title><a xlink:href='#public.user_post_likes'><use id='fk' x='228' y='476' xlink:href='#fk'/><title>References users ( liker_id -&gt; id ) </title></a>
-  <text id='public.user_post_likes.post_id' x='131' y='503' onmouseover="hghl(['user_post_likes_user_post_likes_post_id_fkey','public.post.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_post_id_fkey','public.post.id'])">post_id</text><title>post_id
-bigint</title><a xlink:href='#public.user_post_likes'><use id='fk' x='228' y='492' xlink:href='#fk'/><title>References post ( post_id -&gt; id ) </title></a>
+<rect id='depict_public.user_post_likes' class='entity' style='stroke:none;' x='48' y='328' width='128' height='80' rx='8' ry='8' />
+<path d='M 48 356 L 48 336 Q 48 328 56 328 L 168 328 Q 176 328 176 336 L 176 356 L48 356 ' style='fill:url(#tbg_BED3F4);stroke-width:0;' />
+<rect class='entity' x='48' y='328' width='128' height='80' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
+<a xlink:href='#public.user_post_likes'><text x='54' y='347' >user_post_likes</text><title>Table public.user_post_likes</title></a>
+  <text id='public.user_post_likes.liker_id' x='67' y='375' onmouseover="hghl(['user_post_likes_user_post_likes_liker_id_fkey','public.users.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_liker_id_fkey','public.users.id'])">liker_id</text><title>liker_id
+bigint</title><a xlink:href='#public.user_post_likes'><use id='fk' x='164' y='364' xlink:href='#fk'/><title>References users ( liker_id -&gt; id ) </title></a>
+  <text id='public.user_post_likes.post_id' x='67' y='391' onmouseover="hghl(['user_post_likes_user_post_likes_post_id_fkey','public.post.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_post_id_fkey','public.post.id'])">post_id</text><title>post_id
+bigint</title><a xlink:href='#public.user_post_likes'><use id='fk' x='164' y='380' xlink:href='#fk'/><title>References post ( post_id -&gt; id ) </title></a>
 
 <!-- == Table 'users' == -->
-<rect id='depict_public.users' class='entity' style='stroke:none;' x='112' y='184' width='112' height='128' rx='8' ry='8' />
-<path d='M 112 212 L 112 192 Q 112 184 120 184 L 216 184 Q 224 184 224 192 L 224 212 L112 212 ' style='fill:url(#tbg_BED3F4);stroke-width:0;' />
-<rect class='entity' x='112' y='184' width='112' height='128' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
-<a xlink:href='#public.users'><text x='145' y='203' >users</text><title>Table public.users</title></a>
-  <use id='nn' x='114' y='221' xlink:href='#nn'/><use id='pk' x='114' y='220' xlink:href='#pk'><title>Pk users2_pkey ( id ) </title></use><text id='public.users.id' x='131' y='231' onmouseover="hghl(['post_post_owner_id_fkey','public.post.owner_id','user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','users_users2_parent_id_fkey','public.users.parent_id'])" onmouseout="uhghl(['post_post_owner_id_fkey','public.post.owner_id','user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','users_users2_parent_id_fkey','public.users.parent_id'])">id</text><title>id
-* bigint</title><a xlink:href='#public.users'><use id='ref' x='212' y='220' xlink:href='#ref'/><title>Referred by post ( owner_id -&gt; id ) 
+<rect id='depict_public.users' class='entity' style='stroke:none;' x='48' y='72' width='112' height='128' rx='8' ry='8' />
+<path d='M 48 100 L 48 80 Q 48 72 56 72 L 152 72 Q 160 72 160 80 L 160 100 L48 100 ' style='fill:url(#tbg_BED3F4);stroke-width:0;' />
+<rect class='entity' x='48' y='72' width='112' height='128' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
+<a xlink:href='#public.users'><text x='81' y='91' >users</text><title>Table public.users</title></a>
+  <use id='nn' x='50' y='109' xlink:href='#nn'/><use id='pk' x='50' y='108' xlink:href='#pk'><title>Pk users2_pkey ( id ) </title></use><text id='public.users.id' x='67' y='119' onmouseover="hghl(['post_post_owner_id_fkey','public.post.owner_id','user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','users_users2_parent_id_fkey','public.users.parent_id'])" onmouseout="uhghl(['post_post_owner_id_fkey','public.post.owner_id','user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','users_users2_parent_id_fkey','public.users.parent_id'])">id</text><title>id
+* bigint</title><a xlink:href='#public.users'><use id='ref' x='148' y='108' xlink:href='#ref'/><title>Referred by post ( owner_id -&gt; id ) 
 Referred by user_post_likes ( liker_id -&gt; id ) 
 Referred by users ( parent_id -&gt; id ) </title></a>
-  <text id='public.users.created' x='131' y='247'>created</text><title>created
-timestamp</title><text x='221' y='244' text-anchor='end' class='colType'>d</text>  <text id='public.users.updated' x='131' y='263'>updated</text><title>updated
-timestamp</title><text x='221' y='260' text-anchor='end' class='colType'>d</text>  <use id='nn' x='114' y='269' xlink:href='#nn'/><use id='unq' x='114' y='268' xlink:href='#unq'><title>Unq users2_username_key ( username ) </title></use><text id='public.users.username' x='131' y='279'>username</text><title>username
-* varchar(50)</title><text x='221' y='276' text-anchor='end' class='colType'>t</text>  <text id='public.users.parent_id' x='131' y='295' onmouseover="hghl(['users_users2_parent_id_fkey','public.users.id'])" onmouseout="uhghl(['users_users2_parent_id_fkey','public.users.id'])">parent_id</text><title>parent_id
-bigint</title><a xlink:href='#public.users'><use id='fk' x='212' y='284' xlink:href='#fk'/><title>References users ( parent_id -&gt; id ) </title></a>
+  <text id='public.users.created' x='67' y='135'>created</text><title>created
+timestamp</title><text x='157' y='132' text-anchor='end' class='colType'>d</text>  <text id='public.users.updated' x='67' y='151'>updated</text><title>updated
+timestamp</title><text x='157' y='148' text-anchor='end' class='colType'>d</text>  <use id='nn' x='50' y='157' xlink:href='#nn'/><use id='unq' x='50' y='156' xlink:href='#unq'><title>Unq users2_username_key ( username ) </title></use><text id='public.users.username' x='67' y='167'>username</text><title>username
+* varchar(50)</title><text x='157' y='164' text-anchor='end' class='colType'>t</text>  <text id='public.users.parent_id' x='67' y='183' onmouseover="hghl(['users_users2_parent_id_fkey','public.users.id'])" onmouseout="uhghl(['users_users2_parent_id_fkey','public.users.id'])">parent_id</text><title>parent_id
+bigint</title><a xlink:href='#public.users'><use id='fk' x='148' y='172' xlink:href='#fk'/><title>References users ( parent_id -&gt; id ) </title></a>
 
-<!-- == Callout == -->
-<rect class='callout' x='48' y='64' width='528' height='75' rx='16' ry='16'  />
-<text x='72' y='64' class='callout'>
-    <tspan x='52' dx='8' dy='20'>Double&#45;click table headers&#44; columns&#44; or foreign keys to edit&#46; </tspan>
-    <tspan x='52' dx='8' dy='20'>Create multiple layouts &#40;diagrams&#41; with the same or different tables&#46; </tspan>
-    <tspan x='52' dx='8' dy='20'>Saving the model to file will save also the layouts&#46;</tspan>
-</text>
 </g></svg></div>
 <script type='text/javascript'>
 var svgContainers = document.getElementsByClassName("svgContainer");
@@ -451,7 +444,7 @@ function installListeners( svgContainer, svgImage ){
 <div class='container pt-2'>
 
 <br><br>
-<div class='card'><div class='card-body'><a name='public.post'  onclick="window.scrollTo(152, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;" style='cursor:pointer;'><h5 class='card-title'>Schema public</h5><h5 class='card-title'>Table post</h5></a>
+<div class='card'><div class='card-body'><a name='public.post'  onclick="window.scrollTo(88, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;" style='cursor:pointer;'><h5 class='card-title'>Schema public</h5><h5 class='card-title'>Table post</h5></a>
 <table class='table table-sm small' style='table-layout: fixed; word-wrap: break-word;'>
 <thead>
 <tr><th style='width:5%'>Idx</th><th style='width:40%'>Field Name</th><th>Data Type</th></tr>
@@ -499,26 +492,26 @@ function installListeners( svgContainer, svgImage ){
 <tr><th colspan='3'>Foreign Keys</th></tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td><td>post_parent_post_id_fkey</td>
-		<td > (parent&#95;post&#95;id) &#8594; <a href='#public&#46;post'  onclick="window.scrollTo(152, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;">post</a>(id) </td>
+		<td > (parent&#95;post&#95;id) &#8594; <a href='#public&#46;post'  onclick="window.scrollTo(88, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;">post</a>(id) </td>
 	</tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td><td>post_owner_id_fkey</td>
-		<td > (owner&#95;id) &#8594; <a href='#public&#46;users'  onclick="window.scrollTo(60, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(id) </td>
+		<td > (owner&#95;id) &#8594; <a href='#public&#46;users'  onclick="window.scrollTo(60, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(id) </td>
 	</tr>
 <tr><th colspan='3'>Referring Foreign Keys</th></tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#ref'/></svg></td><td>post_parent_post_id_fkey</td>
-		<td > (id) &#8592; <a href='#public&#46;post'  onclick="window.scrollTo(152, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;">post</a>(parent&#95;post&#95;id) </td>
+		<td > (id) &#8592; <a href='#public&#46;post'  onclick="window.scrollTo(88, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;">post</a>(parent&#95;post&#95;id) </td>
 	</tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#ref'/></svg></td><td>user_post_likes_post_id_fkey</td>
-		<td > (id) &#8592; <a href='#public&#46;user&#95;post&#95;likes'  onclick="window.scrollTo(60, 448);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.user_post_likes').classList.add('palpable'); return false;">user&#95;post&#95;likes</a>(post&#95;id) </td>
+		<td > (id) &#8592; <a href='#public&#46;user&#95;post&#95;likes'  onclick="window.scrollTo(60, 336);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.user_post_likes').classList.add('palpable'); return false;">user&#95;post&#95;likes</a>(post&#95;id) </td>
 	</tr>
 </tbody>
 </table></div></div>
 
 <br><br>
-<div class='card'><div class='card-body'><a name='public.user_post_likes'  onclick="window.scrollTo(60, 448);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.user_post_likes').classList.add('palpable'); return false;" style='cursor:pointer;'><h5 class='card-title'>Table user_post_likes</h5></a>
+<div class='card'><div class='card-body'><a name='public.user_post_likes'  onclick="window.scrollTo(60, 336);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.user_post_likes').classList.add('palpable'); return false;" style='cursor:pointer;'><h5 class='card-title'>Table user_post_likes</h5></a>
 <table class='table table-sm small' style='table-layout: fixed; word-wrap: break-word;'>
 <thead>
 <tr><th style='width:5%'>Idx</th><th style='width:40%'>Field Name</th><th>Data Type</th></tr>
@@ -537,17 +530,17 @@ function installListeners( svgContainer, svgImage ){
 <tr><th colspan='3'>Foreign Keys</th></tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td><td>user_post_likes_post_id_fkey</td>
-		<td > (post&#95;id) &#8594; <a href='#public&#46;post'  onclick="window.scrollTo(152, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;">post</a>(id) </td>
+		<td > (post&#95;id) &#8594; <a href='#public&#46;post'  onclick="window.scrollTo(88, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;">post</a>(id) </td>
 	</tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td><td>user_post_likes_liker_id_fkey</td>
-		<td > (liker&#95;id) &#8594; <a href='#public&#46;users'  onclick="window.scrollTo(60, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(id) </td>
+		<td > (liker&#95;id) &#8594; <a href='#public&#46;users'  onclick="window.scrollTo(60, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(id) </td>
 	</tr>
 </tbody>
 </table></div></div>
 
 <br><br>
-<div class='card'><div class='card-body'><a name='public.users'  onclick="window.scrollTo(60, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;" style='cursor:pointer;'><h5 class='card-title'>Table users</h5></a>
+<div class='card'><div class='card-body'><a name='public.users'  onclick="window.scrollTo(60, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;" style='cursor:pointer;'><h5 class='card-title'>Table users</h5></a>
 <table class='table table-sm small' style='table-layout: fixed; word-wrap: break-word;'>
 <thead>
 <tr><th style='width:5%'>Idx</th><th style='width:40%'>Field Name</th><th>Data Type</th></tr>
@@ -588,20 +581,20 @@ function installListeners( svgContainer, svgImage ){
 <tr><th colspan='3'>Foreign Keys</th></tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td><td>users2_parent_id_fkey</td>
-		<td > (parent&#95;id) &#8594; <a href='#public&#46;users'  onclick="window.scrollTo(60, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(id) </td>
+		<td > (parent&#95;id) &#8594; <a href='#public&#46;users'  onclick="window.scrollTo(60, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(id) </td>
 	</tr>
 <tr><th colspan='3'>Referring Foreign Keys</th></tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#ref'/></svg></td><td>post_owner_id_fkey</td>
-		<td > (id) &#8592; <a href='#public&#46;post'  onclick="window.scrollTo(152, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;">post</a>(owner&#95;id) </td>
+		<td > (id) &#8592; <a href='#public&#46;post'  onclick="window.scrollTo(88, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.post').classList.add('palpable'); return false;">post</a>(owner&#95;id) </td>
 	</tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#ref'/></svg></td><td>user_post_likes_liker_id_fkey</td>
-		<td > (id) &#8592; <a href='#public&#46;user&#95;post&#95;likes'  onclick="window.scrollTo(60, 448);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.user_post_likes').classList.add('palpable'); return false;">user&#95;post&#95;likes</a>(liker&#95;id) </td>
+		<td > (id) &#8592; <a href='#public&#46;user&#95;post&#95;likes'  onclick="window.scrollTo(60, 336);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.user_post_likes').classList.add('palpable'); return false;">user&#95;post&#95;likes</a>(liker&#95;id) </td>
 	</tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#ref'/></svg></td><td>users2_parent_id_fkey</td>
-		<td > (id) &#8592; <a href='#public&#46;users'  onclick="window.scrollTo(60, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(parent&#95;id) </td>
+		<td > (id) &#8592; <a href='#public&#46;users'  onclick="window.scrollTo(60, 80);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(parent&#95;id) </td>
 	</tr>
 </tbody>
 </table></div></div>
