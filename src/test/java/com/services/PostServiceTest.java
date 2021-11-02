@@ -80,7 +80,7 @@ public class PostServiceTest {
     void testLikeAlreadyLikedPostThrowsException() {
         when(postRepository.findById(1L)).thenReturn(Optional.of(new Post()));
         when(userService.findById(1L)).thenReturn(new User());
-        when(userPostLikeRepository.existsByUserPostLikeIdUserIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(true);
+        when(userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(true);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setUserId(1L);
         Assertions.assertThrows(UserAlreadyLikesPostException.class, () -> postService.like(1L, userPostLikeRequestDto));
@@ -101,12 +101,12 @@ public class PostServiceTest {
         verify(postRepository, times(1)).save(postArgumentCaptor.capture());
         Assertions.assertEquals
                 (1L, userPostLikeArgumentCaptor.getValue().getUserPostLikeId().getPostId());
-        Assertions.assertEquals(1L, userPostLikeArgumentCaptor.getValue().getUserPostLikeId().getUserId());
+        Assertions.assertEquals(1L, userPostLikeArgumentCaptor.getValue().getUserPostLikeId().getLikerId());
     }
 
     @Test
     void testDoesntLikePostException() {
-        when(userPostLikeRepository.existsByUserPostLikeIdUserIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(false);
+        when(userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(false);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setUserId(1L);
         Assertions.assertThrows(UserDoesNotLikePostException.class, () -> postService.dislike(1L, userPostLikeRequestDto));
@@ -117,10 +117,10 @@ public class PostServiceTest {
 
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setUserId(1L);
-        when(userPostLikeRepository.existsByUserPostLikeIdUserIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(true);
+        when(userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(true);
         postService.dislike(1L, userPostLikeRequestDto);
         verify(userPostLikeRepository, times(1)).
-                deleteByUserPostLikeIdUserIdAndUserPostLikeIdPostId(longArgumentCaptor.capture(), longArgumentCaptor.capture());
+                deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostId(longArgumentCaptor.capture(), longArgumentCaptor.capture());
     }
 
     @Test

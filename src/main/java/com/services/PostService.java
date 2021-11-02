@@ -52,7 +52,7 @@ public class PostService {
     public Post like(Long postId, UserPostLikeRequestDto userPostLikeRequestDto) {
         Post post = this.findById(postId);
         User user = userService.findById(userPostLikeRequestDto.getUserId());
-        if (userPostLikeRepository.existsByUserPostLikeIdUserIdAndUserPostLikeIdPostId
+        if (userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
                 (userPostLikeRequestDto.getUserId(), postId)) {
             log.error
                     ("User {} has already liked post {}",
@@ -70,7 +70,7 @@ public class PostService {
     //Annotate as transactional so we don't have to add post.removeUserPostLike()
     @Transactional
     public Post dislike(Long postId, UserPostLikeRequestDto userPostLikeRequestDto) {
-        if (!userPostLikeRepository.existsByUserPostLikeIdUserIdAndUserPostLikeIdPostId
+        if (!userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
                 (userPostLikeRequestDto.getUserId(), postId)) {
             log.error
                     ("User {} has not liked post {}",
@@ -79,7 +79,7 @@ public class PostService {
                     + " does not like post " + postId);
         }
 
-        userPostLikeRepository.deleteByUserPostLikeIdUserIdAndUserPostLikeIdPostId
+        userPostLikeRepository.deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
                 (userPostLikeRequestDto.getUserId(), postId);
         return postRepository.getById(postId);
     }

@@ -16,8 +16,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class UserPostLikeId implements Serializable {
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "liker_id")
+    private Long likerId;
 
     @Column(name = "post_id")
     private Long postId;
@@ -27,13 +27,13 @@ public class UserPostLikeId implements Serializable {
         if (this == obj) return true;
         if (!(obj instanceof UserPostLikeId))
             return false;
-        if (userId.equals(((UserPostLikeId) obj).getUserId()) && postId.equals(((UserPostLikeId) obj).getPostId()))
+        if (likerId.equals(((UserPostLikeId) obj).getLikerId()) && postId.equals(((UserPostLikeId) obj).getPostId()))
             return true;
         return false;
     }
 
     @Override
     public int hashCode() {
-        return userId.hashCode() >>> postId.hashCode();
+        return likerId.hashCode() >>> postId.hashCode();
     }
 }

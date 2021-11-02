@@ -18,10 +18,10 @@ CREATE TABLE "post" (
 );
 
 CREATE TABLE "user_post_likes" (
-  "user_id" bigint,
+  "liker_id" bigint,
   "post_id" bigint
 );
 
-ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("liker_id") REFERENCES "users" ("id");
 
 ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("post_id") REFERENCES "post" ("id");

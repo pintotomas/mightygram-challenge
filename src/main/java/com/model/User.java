@@ -26,7 +26,7 @@ public class User extends AuditableEntity {
     @Size(max = 50)
     private String username;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPostLikeId.userId")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPostLikeId.likerId")
     private List<UserPostLike> userPostLikes;
 
     public User(String username) {
