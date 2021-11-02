@@ -9,12 +9,14 @@ import com.model.Post;
 import com.model.User;
 import com.model.UserPostLike;
 import com.model.compositekeys.UserPostLikeId;
+import com.model.events.PostCreatedEvent;
 import com.repositories.PostRepository;
 import com.repositories.UserPostLikeRepository;
 import com.services.storage.StorageService;
 import com.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +38,8 @@ public class PostService {
     @Autowired private UserService userService;
 
     @Autowired private StorageService storageService;
+
+    @Autowired private ApplicationEventPublisher applicationEventPublisher;
 
     public Post findByIdAndOwner(Long id, Long ownerId) {
         return postRepository.findByIdAndOwnerId(id, ownerId).orElseThrow(
@@ -110,7 +114,7 @@ public class PostService {
 
     @Transactional
     public Post create(PostCreateRequestDto postCreateRequestDto, MultipartFile photo) {
-        //TODO if rollback, delete file
+
         User parent = userService.findById(postCreateRequestDto.getOwnerId());
         String fileName = FileUtils.generateFileName(photo.getName());
         storageService.store(photo, fileName);
@@ -121,6 +125,7 @@ public class PostService {
         ownerChildren.forEach(child ->
             postRepository.save(new Post(postCreateRequestDto.getDescription(), fileName, child, finalPost))
         );
+        applicationEventPublisher.publishEvent(new PostCreatedEvent(fileName));
         return post;
     }
 }
