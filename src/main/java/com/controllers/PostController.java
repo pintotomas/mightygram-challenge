@@ -5,10 +5,12 @@ import com.dto.PostResponseDto;
 import com.dto.UserPostLikeRequestDto;
 import com.model.Post;
 import com.services.PostService;
+import com.services.storage.StorageService;
 import com.validations.annotations.ValidFile;
 import com.validations.enums.FileType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import javax.validation.constraints.Size;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -28,6 +32,14 @@ public class PostController {
     public static final String URL_MAPPING_POSTS = "/posts";
 
     @Autowired private PostService postService;
+
+    @Autowired private StorageService storageService;
+
+    @GetMapping("/{id}/photo")
+    public ResponseEntity<Resource> getPostPhoto(@PathVariable Long id) {
+        log.info("Requested to get photo from post {}", id);
+        return ResponseEntity.ok(storageService.loadAsResource(postService.findById(id).getFilename()));
+    }
 
     @GetMapping("/{id}")
     @ResponseBody
@@ -43,7 +55,8 @@ public class PostController {
             @RequestParam("size") @Min(1) Integer size
     ) {
         log.info("Requested to get posts page {} size {}", page, size);
-        return ResponseEntity.ok(postService.findAllPaginated(page, size).map(post -> new PostResponseDto(post)));
+        return ResponseEntity.ok(postService.findAllPaginated(page, size).map(post ->
+            new PostResponseDto(post)));
     }
 
     @PostMapping("/{id}/like")
@@ -76,9 +89,7 @@ public class PostController {
             @ValidFile(type = {FileType.IMAGE_JPEG, FileType.IMAGE_PNG})
             MultipartFile photo,
             @ModelAttribute @Validated PostCreateRequestDto postCreateRequestDto) {
-        Post post = new Post();
-        post.setCreated(LocalDateTime.now());
-        post.setUserPostLikes(Arrays.asList());
+        Post post = postService.create(postCreateRequestDto, photo);
         return ResponseEntity.ok(new PostResponseDto(post));
     }
 }

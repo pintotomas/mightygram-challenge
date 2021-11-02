@@ -1,5 +1,6 @@
 package com.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.model.Post;
 import com.utils.Dateutils;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostResponseDto {
 
     @NotNull
@@ -19,9 +21,7 @@ public class PostResponseDto {
     @Size(max = 1500)
     private String description;
 
-    @NotNull
-    @Size(max = 2048)
-    private String photoUrl;
+    private String filename;
 
     @NotNull
     private String created;
@@ -33,7 +33,7 @@ public class PostResponseDto {
     public PostResponseDto(Post post) {
         this.id = post.getId();
         this.description = post.getDescription();
-        this.photoUrl = post.getPhotoUrl();
+        this.filename = post.getFilename();
         this.created = Dateutils.toTimeStamp(post.getCreated());
         this.likeCount = post.getUserPostLikes().size();
     }

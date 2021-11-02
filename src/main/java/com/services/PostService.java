@@ -1,5 +1,6 @@
 package com.services;
 
+import com.dto.PostCreateRequestDto;
 import com.dto.UserPostLikeRequestDto;
 import com.exceptions.PostNotFoundException;
 import com.exceptions.UserAlreadyLikesPostException;
@@ -10,6 +11,8 @@ import com.model.UserPostLike;
 import com.model.compositekeys.UserPostLikeId;
 import com.repositories.PostRepository;
 import com.repositories.UserPostLikeRepository;
+import com.services.storage.StorageService;
+import com.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 
@@ -29,6 +33,8 @@ public class PostService {
     @Autowired private UserPostLikeRepository userPostLikeRepository;
 
     @Autowired private UserService userService;
+
+    @Autowired private StorageService storageService;
 
     public Post findById(Long id) {
         return postRepository.findById(id).orElseThrow(
@@ -76,5 +82,12 @@ public class PostService {
         userPostLikeRepository.deleteByUserPostLikeIdUserIdAndUserPostLikeIdPostId
                 (userPostLikeRequestDto.getUserId(), postId);
         return postRepository.getById(postId);
+    }
+
+    public Post create(PostCreateRequestDto postCreateRequestDto, MultipartFile photo) {
+        String fileName = FileUtils.generateFileName(photo.getName());
+        storageService.store(photo, fileName);
+        Post post = new Post(postCreateRequestDto.getDescription(), fileName);
+        return postRepository.save(post);
     }
 }

@@ -117,10 +117,10 @@ public class PostControllerTest {
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         JSONObject json = new JSONObject(result.getResponse().getContentAsString());
         Assertions.assertEquals("description", json.get("description"));
-        Assertions.assertEquals("url", json.get("photoUrl"));
+        Assertions.assertEquals("url", json.get("filename"));
         Assertions.assertEquals("2021-10-30T16:39:00", json.get("created"));
         Assertions.assertEquals(0, json.get("likeCount"));
-        Assertions.assertEquals(5, json.length());
+        Assertions.assertEquals(4, json.length());
     }
 
     @Test
@@ -252,6 +252,7 @@ public class PostControllerTest {
 
     @Test
     public void whenCreatePostWithJpgPicture_thenUploadOk() throws Exception {
+        when(postService.create(any(), any())).thenReturn(post);
         PostCreateRequestDto postCreateRequestDto =
                 new PostCreateRequestDto();
         postCreateRequestDto.setDescription("Description");
@@ -269,6 +270,7 @@ public class PostControllerTest {
 
     @Test
     public void whenCreatePostWithPngPicture_thenUploadOk() throws Exception {
+        when(postService.create(any(), any())).thenReturn(post);
         PostCreateRequestDto postCreateRequestDto =
                 new PostCreateRequestDto();
         postCreateRequestDto.setDescription("Description");

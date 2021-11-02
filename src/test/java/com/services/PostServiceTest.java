@@ -1,5 +1,6 @@
 package com.services;
 
+import com.dto.PostCreateRequestDto;
 import com.dto.UserPostLikeRequestDto;
 import com.exceptions.PostNotFoundException;
 import com.exceptions.UserAlreadyLikesPostException;
@@ -9,6 +10,7 @@ import com.model.User;
 import com.model.UserPostLike;
 import com.repositories.PostRepository;
 import com.repositories.UserPostLikeRepository;
+import com.services.storage.StorageService;
 import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 
 import java.util.Optional;
 
@@ -39,6 +43,9 @@ public class PostServiceTest {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    private StorageService storageService;
 
     @Rule
     private MockitoRule rule = MockitoJUnit.rule();
@@ -60,7 +67,7 @@ public class PostServiceTest {
         Post foundPost = postService.findById(1L);
         Assertions.assertEquals(1L, foundPost.getId());
         Assertions.assertEquals("description", foundPost.getDescription());
-        Assertions.assertEquals("url", foundPost.getPhotoUrl());
+        Assertions.assertEquals("url", foundPost.getFilename());
     }
 
     @Test
@@ -115,4 +122,19 @@ public class PostServiceTest {
         verify(userPostLikeRepository, times(1)).
                 deleteByUserPostLikeIdUserIdAndUserPostLikeIdPostId(longArgumentCaptor.capture(), longArgumentCaptor.capture());
     }
+
+    @Test
+    void testCreatePost() {
+        PostCreateRequestDto postCreateRequestDto = new PostCreateRequestDto();
+        postCreateRequestDto.setDescription("description");
+        MockMultipartFile mockMultipartFile = new MockMultipartFile(
+                "file", "post.jpg", MediaType.IMAGE_JPEG_VALUE, "Hello, World!".getBytes());
+        postService.create(postCreateRequestDto, mockMultipartFile);
+        verify(postRepository, times(1)).save(postArgumentCaptor.capture());
+        Assertions.assertTrue(postArgumentCaptor.getValue().getFilename().contains("file"));
+        Assertions.assertTrue(postArgumentCaptor.getValue().getDescription().equals("description"));
+
+    }
+
+
 }
