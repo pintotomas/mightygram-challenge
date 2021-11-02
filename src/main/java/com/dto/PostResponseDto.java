@@ -28,19 +28,19 @@ public class PostResponseDto {
     private String created;
 
     @NotNull
-    private Integer likeCount;
+    private Long likeCount;
 
     @NotNull
     private Long ownerId;
 
     //TODO could add time since creation
 
-    public PostResponseDto(Post post) {
+    public PostResponseDto(Post post, Long likeCount) {
         this.id = post.getId();
         this.description = post.getDescription();
         this.filename = post.getFilename();
         this.created = Dateutils.toTimeStamp(post.getCreated());
-        this.likeCount = post.getUserPostLikes().size();
+        this.likeCount = likeCount;
         this.ownerId = post.getOwner().getId();
     }
 }

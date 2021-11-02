@@ -57,7 +57,7 @@ public class PostControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(postController)
                 .setControllerAdvice(new PostControllerAdvisor())
                 .build();
-        post = new Post("description", "url", new User());
+        post = new Post("description", "url", new User(), null);
         LocalDateTime localDateTime = LocalDateTime.of(2021, 10, 30, 16, 39);
         post.setCreated(localDateTime);
         post.setUserPostLikes(Arrays.asList());

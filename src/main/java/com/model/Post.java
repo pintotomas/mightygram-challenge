@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -37,10 +38,18 @@ public class Post extends AuditableEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPostLikeId.postId")
     private List<UserPostLike> userPostLikes;
 
-    public Post(String description, String filename, User owner) {
+    @OneToOne
+    private Post parentPost;
+
+    public Post(String description, String filename, User owner, Post parentPost) {
         this.description = description;
         this.filename = filename;
         this.userPostLikes = new ArrayList<>();
         this.owner = owner;
+        this.parentPost = parentPost;
+    }
+
+    public Optional<Post> getParentPost() {
+        return Optional.ofNullable(parentPost);
     }
 }

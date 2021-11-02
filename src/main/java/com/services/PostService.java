@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
-import java.util.Collection;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -37,9 +37,15 @@ public class PostService {
 
     @Autowired private StorageService storageService;
 
+    public Post findByIdAndOwner(Long id, Long ownerId) {
+        return postRepository.findByIdAndOwnerId(id, ownerId).orElseThrow(
+                () -> new PostNotFoundException("Post with id " + id + " not found " + " for owner id " + ownerId)
+        );
+    }
+
     public Post findById(Long id) {
         return postRepository.findById(id).orElseThrow(
-                () -> new PostNotFoundException("Post with id" + id + "not found")
+                () -> new PostNotFoundException("Post with id " + id + " not found")
         );
     }
 
@@ -51,9 +57,9 @@ public class PostService {
     //Annotate as transactional so we don't have to add post.addUserPostLike()
     @Transactional
     public Post like(Long postId, UserPostLikeRequestDto userPostLikeRequestDto) {
-        Post post = this.findById(postId);
-        User liker = userService.findById(userPostLikeRequestDto.getLikerId());
         User owner = userService.findById(userPostLikeRequestDto.getOwnerId());
+        Post post = this.findByIdAndOwner(postId, owner.getId());
+        User liker = userService.findById(userPostLikeRequestDto.getLikerId());
         if (userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
                 (liker.getId(), postId, owner.getId())) {
             log.error
@@ -67,6 +73,22 @@ public class PostService {
                 new UserPostLikeId(liker.getId(), post.getId(), owner.getId())
         ));
         return postRepository.save(post);
+    }
+
+    public Long likeCount(Post post, User owner) {
+        Optional<User> parent = owner.getParent();
+        ArrayList<Long> userIds = new ArrayList<>();
+        userIds.add(owner.getId());
+        if (parent.isPresent()) {
+            userIds.add(parent.get().getId());
+        }
+        ArrayList<Long> postIds = new ArrayList<>();
+        postIds.add(post.getId());
+        Optional<Post> parentPost = post.getParentPost();
+        if (parentPost.isPresent()) {
+            postIds.add(parentPost.get().getId());
+        }
+        return userPostLikeRepository.countByUserPostLikeIdPostIdInAndUserPostLikeIdOwnerIdIn(postIds, userIds);
     }
 
     //Annotate as transactional so we don't have to add post.removeUserPostLike()
@@ -92,11 +114,12 @@ public class PostService {
         User parent = userService.findById(postCreateRequestDto.getOwnerId());
         String fileName = FileUtils.generateFileName(photo.getName());
         storageService.store(photo, fileName);
-        Post post = new Post(postCreateRequestDto.getDescription(), fileName, parent);
+        Post post = new Post(postCreateRequestDto.getDescription(), fileName, parent, null);
         Collection<User> ownerChildren = userService.findAllChildren(parent);
         post = postRepository.save(post);
+        Post finalPost = post;
         ownerChildren.forEach(child ->
-            postRepository.save(new Post(postCreateRequestDto.getDescription(), fileName, child))
+            postRepository.save(new Post(postCreateRequestDto.getDescription(), fileName, child, finalPost))
         );
         return post;
     }

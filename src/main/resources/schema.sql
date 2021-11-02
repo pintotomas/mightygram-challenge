@@ -16,7 +16,8 @@ CREATE TABLE "post" (
   "updated" timestamp,
   "description" varchar(1500) NOT NULL,
   "filename" varchar(2048) NOT NULL,
-  "owner_id" bigint NOT NULL
+  "owner_id" bigint NOT NULL,
+  "parent_post_id" bigint
 );
 
 CREATE TABLE "user_post_likes" (
@@ -28,6 +29,8 @@ CREATE TABLE "user_post_likes" (
 ALTER TABLE "users" ADD FOREIGN KEY ("parent_id") REFERENCES "users" ("id");
 
 ALTER TABLE "post" ADD FOREIGN KEY ("owner_id") REFERENCES "users" ("id");
+
+ALTER TABLE "post" ADD FOREIGN KEY ("parent_post_id") REFERENCES "post" ("id");
 
 ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("liker_id") REFERENCES "users" ("id");
 

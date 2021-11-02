@@ -62,7 +62,7 @@ public class PostServiceTest {
 
     @Test
     void testFindByIdSuccess() {
-        Post post = new Post("description", "url", new User());
+        Post post = new Post("description", "url", new User(), null);
         post.setId(1L);
         when(postRepository.findById(1L)).thenReturn(Optional.of(post));
         Post foundPost = postService.findById(1L);
@@ -79,7 +79,7 @@ public class PostServiceTest {
 
     @Test
     void testLikeAlreadyLikedPostThrowsException() {
-        when(postRepository.findById(1L)).thenReturn(Optional.of(new Post()));
+        when(postRepository.findByIdAndOwnerId(1L, 1L)).thenReturn(Optional.of(new Post()));
         User user = new User();
         user.setId(1L);
         when(userService.findById(1L)).thenReturn(user);
@@ -98,9 +98,9 @@ public class PostServiceTest {
         User user = new User("userTest");
         user.setId(1L);
         when(userService.findById(1L)).thenReturn(user);
-        Post post = new Post("description", "url", new User());
+        Post post = new Post("description", "url", new User(), null);
         post.setId(1L);
-        when(postRepository.findById(1L)).thenReturn(Optional.of(post));
+        when(postRepository.findByIdAndOwnerId(1L, 1L)).thenReturn(Optional.of(post));
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(1L);
         userPostLikeRequestDto.setOwnerId(1L);
