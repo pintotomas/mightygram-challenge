@@ -1,7 +1,11 @@
 package com.controllers;
 
 import com.advisors.PostControllerAdvisor;
-import com.exceptions.PostNotFoundException;
+import com.dto.UserPostLikeRequestDto;
+import com.exceptions.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.model.Post;
 import com.services.PostService;
 import org.json.JSONObject;
@@ -73,6 +77,19 @@ public class PostControllerTest {
     }
 
     @Test
+    void testGetByUnknownIdShouldReturnsErrorResponseDto() throws Exception {
+        when(postService.findById(2L)).thenThrow(PostNotFoundException.class);
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.get(postController.URL_MAPPING_POSTS + "/2");
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        JSONObject json = new JSONObject(result.getResponse().getContentAsString());
+        Assertions.assertEquals(ErrorCode.POST_NOT_FOUND.name(), json.get("errorCode"));
+        Assertions.assertEquals(ErrorCode.POST_NOT_FOUND.getErrorNumber(), json.get("errorNumber"));
+        Assertions.assertEquals(3, json.length());
+    }
+
+
+    @Test
     void testGetByKnownIdShouldReturnJson() throws Exception {
         when(postService.findById(1L)).thenReturn(post);
         RequestBuilder requestBuilder =
@@ -104,5 +121,130 @@ public class PostControllerTest {
         Assertions.assertEquals(5, json.length());
     }
 
+    @Test
+    void testLikeUnknownPostIdShouldReturnNotFoundHttpResponseStatus() throws Exception {
+        when(postService.like(anyLong(), any())).thenThrow(PostNotFoundException.class);
+        UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
+        userPostLikeRequestDto.setUserId(1L);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(userPostLikeRequestDto );
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.post(postController.URL_MAPPING_POSTS + "/10/like")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson);
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 
+    @Test
+    void testLikeUnknownUserIdShouldReturnNotFoundHttpResponseStatus() throws Exception {
+        when(postService.like(anyLong(), any())).thenThrow(UserNotFoundException.class);
+        UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
+        userPostLikeRequestDto.setUserId(1L);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(userPostLikeRequestDto );
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.post(postController.URL_MAPPING_POSTS + "/10/like")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson);
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    void testAlreadyLikedPostShouldReturnPreconditionFailedResponseStatus() throws Exception {
+        when(postService.like(anyLong(), any())).thenThrow(UserAlreadyLikesPostException.class);
+        UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
+        userPostLikeRequestDto.setUserId(1L);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(userPostLikeRequestDto );
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.post(postController.URL_MAPPING_POSTS + "/10/like")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson);
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isPreconditionFailed());
+    }
+
+    @Test
+    void testNotLikedPostShouldReturnPreconditionFailedResponseStatus() throws Exception {
+        when(postService.dislike(anyLong(), any())).thenThrow(UserDoesNotLikePostException.class);
+        UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
+        userPostLikeRequestDto.setUserId(1L);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(userPostLikeRequestDto );
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.post(postController.URL_MAPPING_POSTS + "/10/dislike")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson);
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isPreconditionFailed());
+    }
+
+    @Test
+    void testLikeAlreadyLikedPostReturnsErrorResponseDto() throws Exception {
+        when(postService.like(anyLong(), any())).thenThrow(UserAlreadyLikesPostException.class);
+        UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
+        userPostLikeRequestDto.setUserId(1L);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(userPostLikeRequestDto );
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.post(postController.URL_MAPPING_POSTS + "/10/like")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson)
+                        .param("id", "10");
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        JSONObject json = new JSONObject(result.getResponse().getContentAsString());
+        Assertions.assertEquals(ErrorCode.POST_ALREADY_LIKED.name(), json.get("errorCode"));
+        Assertions.assertEquals(ErrorCode.POST_ALREADY_LIKED.getErrorNumber(), json.get("errorNumber"));
+        Assertions.assertEquals(3, json.length());
+    }
+
+    @Test
+    void testDislikeNotLikedPostReturnsErrorResponseDto() throws Exception {
+        when(postService.dislike(anyLong(), any())).thenThrow(UserDoesNotLikePostException.class);
+        UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
+        userPostLikeRequestDto.setUserId(1L);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(userPostLikeRequestDto );
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.post(postController.URL_MAPPING_POSTS + "/10/dislike")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson)
+                        .param("id", "10");
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        JSONObject json = new JSONObject(result.getResponse().getContentAsString());
+        Assertions.assertEquals(ErrorCode.POST_NOT_LIKED.name(), json.get("errorCode"));
+        Assertions.assertEquals(ErrorCode.POST_NOT_LIKED.getErrorNumber(), json.get("errorNumber"));
+        Assertions.assertEquals(3, json.length());
+    }
+
+    @Test
+    void testDislikeUnknownUserReturnsErrorResponseDto() throws Exception {
+        when(postService.dislike(anyLong(), any())).thenThrow(UserNotFoundException.class);
+        UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
+        userPostLikeRequestDto.setUserId(1L);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(userPostLikeRequestDto );
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.post(postController.URL_MAPPING_POSTS + "/10/dislike")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson)
+                        .param("id", "10");
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        JSONObject json = new JSONObject(result.getResponse().getContentAsString());
+        Assertions.assertEquals(ErrorCode.USER_NOT_FOUND.name(), json.get("errorCode"));
+        Assertions.assertEquals(ErrorCode.USER_NOT_FOUND.getErrorNumber(), json.get("errorNumber"));
+        Assertions.assertEquals(3, json.length());
+    }
 }
