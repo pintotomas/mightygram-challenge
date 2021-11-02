@@ -1,5 +1,8 @@
 package com.services;
 
+import com.dto.UserParenthoodRequestDto;
+import com.exceptions.UserAlreadyHasAParentException;
+import com.exceptions.UserCantParentSelfException;
 import com.exceptions.UserNotFoundException;
 import com.model.User;
 import com.repositories.UserRepository;
@@ -23,4 +26,20 @@ public class UserService {
         );
     }
 
+    public User assignParent(UserParenthoodRequestDto userParenthoodRequestDto) {
+        Long childId = userParenthoodRequestDto.getChildId();
+        Long parentId = userParenthoodRequestDto.getParentId();
+        if (childId.equals(parentId)) {
+            log.error("User {} attempted to parent self", parentId);
+            throw new UserCantParentSelfException("User " + childId + " attempted to parent self");
+        }
+        User child = this.findById(childId);
+        if (child.getParent().isPresent()) {
+            log.error("User {} already has a parent", parentId);
+            throw new UserAlreadyHasAParentException("User {} has already a parent assigned");
+        }
+        User parent = this.findById(parentId);
+        child.setParent(parent);
+        return userRepository.save(child);
+    }
 }

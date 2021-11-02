@@ -12,7 +12,9 @@ public enum ErrorCode {
     USER_NOT_FOUND(104),
     CONSTRAINT_VIOLATION(105),
     STORAGE_ERROR(106),
-    FILE_NOT_FOUND(107);
+    FILE_NOT_FOUND(107),
+    USER_ALREADY_HAS_PARENT(108),
+    USER_CANT_PARENT_SELF(109);
 
     private Integer errorNumber;
 
