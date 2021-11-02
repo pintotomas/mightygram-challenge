@@ -283,21 +283,4 @@ public class PostControllerTest {
                         .param("description", "description");
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
     }
-
-    @Test
-    public void whenCreatePostWithGifPicture_thenDontUpload() throws Exception {
-        PostCreateRequestDto postCreateRequestDto =
-                new PostCreateRequestDto();
-        postCreateRequestDto.setDescription("Description");
-
-        MockMultipartFile file =
-                new MockMultipartFile(
-                        "file", "post.jpg", MediaType.IMAGE_GIF_VALUE, "Hello, World!".getBytes());
-        RequestBuilder requestBuilder =
-                MockMvcRequestBuilders.multipart(postController.URL_MAPPING_POSTS)
-                        .file("photo", file.getBytes())
-                        .contentType(MediaType.MULTIPART_FORM_DATA)
-                        .param("description", "description");
-        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isMethodNotAllowed());
-    }
 }
