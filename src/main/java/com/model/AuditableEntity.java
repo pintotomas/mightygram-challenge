@@ -1,6 +1,7 @@
 package com.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.utils.Dateutils;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,6 +21,17 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public abstract class AuditableEntity implements Serializable {
+
+    @PrePersist
+    public void prePersist() {
+        created = Dateutils.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updated = Dateutils.now();
+    }
+
 
     @Column(nullable = false, updatable = false)
     @CreatedDate
