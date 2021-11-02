@@ -9,14 +9,14 @@ import java.util.List;
 public interface UserPostLikeRepository extends JpaRepository<UserPostLike, UserPostLikeId> {
 
     //This method checks if exists a like from user with likerId belonging to postId owned by the user ownerId
-    boolean existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
-    (Long likerId, Long postId, Long ownerId);
+    boolean existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
+    (Long likerId, Long postId);
 
     //This method deletes a like from user with likerId belonging to postId owned by the user ownerId
-    void deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
-    (Long likerId, Long postId, Long ownerId);
+    void deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
+    (Long likerId, Long postId);
 
     //Counts how many likes from different owners a post has
-    Long countByUserPostLikeIdPostIdInAndUserPostLikeIdOwnerIdIn
-    (List<Long> postId, List<Long> ownerIds);
+    Long countByUserPostLikeIdPostIdIn
+    (List<Long> postId);
 }

@@ -83,7 +83,6 @@ public class PostServiceIntegrationTest {
         Post parentPost = postService.create(postCreateRequestDto, mockMultipartFile);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(6L);
-        userPostLikeRequestDto.setOwnerId(1L);
         parentPost = postService.like(parentPost.getId(), userPostLikeRequestDto);
 
         Assertions.assertEquals(1L, postService.likeCount(parentPost, userService.findById(1L)));
@@ -106,33 +105,11 @@ public class PostServiceIntegrationTest {
         Post parentPost = postService.create(postCreateRequestDto, mockMultipartFile);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(6L);
-        userPostLikeRequestDto.setOwnerId(2L);
         Post childPost = postService.like(parentPost.getId() + 1, userPostLikeRequestDto);
 
         Assertions.assertEquals(0L, postService.likeCount(parentPost, userService.findById(1L)));
         Assertions.assertEquals
                 (1L, postService.likeCount(postService.findById(childPost.getId()), userService.findById(2L)));
-    }
-
-    @Test
-    void testIntegrationCreateParentHoodParentMakesPostAndTryToLikeParentPostWithOwnerIdChildThrowsException() {
-        UserParenthoodRequestDto userParenthoodRequestDto = new UserParenthoodRequestDto();
-        userParenthoodRequestDto.setParentId(1L);
-        userParenthoodRequestDto.setChildId(2L);
-        userService.assignParent(userParenthoodRequestDto);
-        MockMultipartFile mockMultipartFile = new MockMultipartFile(
-                "file", "post.jpg", MediaType.IMAGE_JPEG_VALUE, "Hello, World!".getBytes());
-
-        PostCreateRequestDto postCreateRequestDto = new PostCreateRequestDto();
-        postCreateRequestDto.setOwnerId(1L);
-        postCreateRequestDto.setDescription("Description");
-        Post parentPost = postService.create(postCreateRequestDto, mockMultipartFile);
-        UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setLikerId(6L);
-        userPostLikeRequestDto.setOwnerId(2L);
-        Assertions.assertThrows(PostNotFoundException.class,
-                () -> postService.like(parentPost.getId(), userPostLikeRequestDto));
-
     }
 
     @Test
@@ -150,7 +127,6 @@ public class PostServiceIntegrationTest {
         Post parentPost = postService.create(postCreateRequestDto, mockMultipartFile);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(6L);
-        userPostLikeRequestDto.setOwnerId(1L);
         parentPost = postService.like(parentPost.getId(), userPostLikeRequestDto);
         postService.dislike(parentPost.getId(), userPostLikeRequestDto);
 

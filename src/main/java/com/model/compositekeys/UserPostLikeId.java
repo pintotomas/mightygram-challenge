@@ -22,23 +22,19 @@ public class UserPostLikeId implements Serializable {
     @Column(name = "post_id")
     private Long postId;
 
-    @Column(name = "owner_id")
-    private Long ownerId;
-
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof UserPostLikeId))
             return false;
         if (likerId.equals(((UserPostLikeId) obj).getLikerId()) &&
-                postId.equals(((UserPostLikeId) obj).getPostId()) &&
-                ownerId.equals(((UserPostLikeId) obj).getOwnerId()))
+                postId.equals(((UserPostLikeId) obj).getPostId()))
             return true;
         return false;
     }
 
     @Override
     public int hashCode() {
-        return (likerId.hashCode() >>> postId.hashCode()) >>> ownerId.hashCode();
+        return (likerId.hashCode() >>> postId.hashCode());
     }
 }

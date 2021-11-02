@@ -22,7 +22,6 @@ CREATE TABLE "post" (
 
 CREATE TABLE "user_post_likes" (
   "liker_id" bigint,
-  "owner_id" bigint,
   "post_id" bigint
 );
 
@@ -33,7 +32,5 @@ ALTER TABLE "post" ADD FOREIGN KEY ("owner_id") REFERENCES "users" ("id");
 ALTER TABLE "post" ADD FOREIGN KEY ("parent_post_id") REFERENCES "post" ("id");
 
 ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("liker_id") REFERENCES "users" ("id");
-
-ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("owner_id") REFERENCES "users" ("id");
 
 ALTER TABLE "user_post_likes" ADD FOREIGN KEY ("post_id") REFERENCES "post" ("id");

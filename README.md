@@ -156,8 +156,7 @@ The requests are:
 curl --location --request POST 'http://localhost:8080/posts/11/like' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "likerId": 4,
-    "ownerId": 1
+    "likerId": 4
 }'
 
 And
@@ -165,11 +164,10 @@ And
 curl --location --request POST 'http://localhost:8080/posts/11/dislike' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "likerId": 4,
-    "ownerId": 1
+    "likerId": 4
 }'
 
-Both have the postId as a path variable and you must send a JSON with the likerId (The user who is liking the post) and the ownerId (The owner of the post you are liking)
+Both have the postId as a path variable and you must send a JSON with the likerId (The user who is liking the post) 
 
 When liking, on success the post information will be returned and you should see an increase in the likeCount (or decreasing if disliking)
 

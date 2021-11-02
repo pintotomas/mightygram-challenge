@@ -129,7 +129,6 @@ public class PostControllerTest {
         when(postService.like(anyLong(), any())).thenThrow(PostNotFoundException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(1L);
-        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -146,7 +145,6 @@ public class PostControllerTest {
         when(postService.like(anyLong(), any())).thenThrow(UserNotFoundException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(1L);
-        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -163,7 +161,6 @@ public class PostControllerTest {
         when(postService.like(anyLong(), any())).thenThrow(UserAlreadyLikesPostException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(1L);
-        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -180,7 +177,6 @@ public class PostControllerTest {
         when(postService.dislike(anyLong(), any())).thenThrow(UserDoesNotLikePostException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(1L);
-        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -197,7 +193,6 @@ public class PostControllerTest {
         when(postService.like(anyLong(), any())).thenThrow(UserAlreadyLikesPostException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(1L);
-        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -219,7 +214,6 @@ public class PostControllerTest {
         when(postService.dislike(anyLong(), any())).thenThrow(UserDoesNotLikePostException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(1L);
-        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
@@ -241,7 +235,6 @@ public class PostControllerTest {
         when(postService.dislike(anyLong(), any())).thenThrow(UserNotFoundException.class);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
         userPostLikeRequestDto.setLikerId(1L);
-        userPostLikeRequestDto.setOwnerId(1L);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();

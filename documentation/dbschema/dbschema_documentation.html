@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang='en-us' xmlns='http://www.w3.org/1999/xhtml' >
 <head>
-<title>MightyGram db documentation</title>
+<title>MightyGram dbschema documentation</title>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
 <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
 <link rel='shortcut icon' href='https://dbschema.com/images/favicon.ico'>
@@ -39,7 +39,7 @@ tr:nth-child(even) {
 
 <a name='layout1'/><h4>Main Layout</h4>
 <div class='svgContainer'>
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'   width='608' height='734' viewBox='0 0 608 734' >
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'   width='608' height='718' viewBox='0 0 608 718' >
   <script type='text/ecmascript'>
   <![CDATA[
   function hghl(el) { for ( var i in el ){ var elem = document.getElementById(el[i]); if ( elem != null ) elem.setAttribute('class','highlight');  }  }
@@ -263,13 +263,13 @@ tr:nth-child(even) {
 
 <!-- == Shape Colors == -->
 <!-- == Desktop == -->
-<rect x='1' y='1' width='606' height='732' rx='8' ry='8' style='fill:url(#layoutBgA); stroke:#aaa; stroke-width:1px;' />
-<rect x='1' y='1' width='606' height='732' rx='8' ry='8' style='fill:url(#layoutBgTr);' />
+<rect x='1' y='1' width='606' height='716' rx='8' ry='8' style='fill:url(#layoutBgA); stroke:#aaa; stroke-width:1px;' />
+<rect x='1' y='1' width='606' height='716' rx='8' ry='8' style='fill:url(#layoutBgTr);' />
 
 <!-- == Legend == -->
 <g transform='translate(10,10)'>
   <rect x='10' y='10' width='420' height='70' rx='6' ry='6' style='fill:url(#legendGradient);filter:url(#shadow);'/> 
-  <text x='20' y='25' class='legendTitle' >MightyGram db documentation</text> 
+  <text x='20' y='25' class='legendTitle' >MightyGram dbschema documentation</text> 
   <a xlink:href='https://dbschema.com'><text x='20' y='39' class='legendSubTitle'><tspan>(c) DbSchema</tspan></text></a> 
   <text x='20' y='53' class='legendSubTitle'><tspan>Read table and column comments as mouse-over tooltips.</tspan></text> 
   <text x='20' y='67' class='legendSubTitle'><tspan>Zoom ~ Ctrl + mouse wheel, panning ~ drag + right-mouse button.</tspan></text> 
@@ -277,7 +277,7 @@ tr:nth-child(even) {
 
 <g transform='translate(0,110)'>
 <!-- == Group 'users2' == -->
-<rect class='grp' style='fill:#E1EBFC;stroke:#9EADC7' x='96' y='157' width='416' height='402' />
+<rect class='grp' style='fill:#E1EBFC;stroke:#9EADC7' x='96' y='157' width='416' height='386' />
 <text x='108' y='173'>users2</text>
 <rect style='fill:url(#groupUnderTitleLine); stroke-width:2;' x='108' y='177' width='392' height='2' />
 
@@ -313,14 +313,6 @@ user_post_likes ref users ( liker_id -&gt; id )</title>
 <path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 128,432L 128,320' ><title>Fk user_post_likes_liker_id_fkey
 user_post_likes ref users ( liker_id -&gt; id )</title></path>
 <text x='131' y='430' transform='rotate(270 131,430)' class='relName'>liker_id</text>
-<!-- == Fk 'user_post_likes_user_post_likes_owner_id_fkey' == -->
-<path id='user_post_likes_user_post_likes_owner_id_fkey'  onmouseover="hghl(['user_post_likes_user_post_likes_owner_id_fkey','public.user_post_likes.owner_id','public.users.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_owner_id_fkey','public.user_post_likes.owner_id','public.users.id'])" transform='translate(8,0)' class='unhighlight' d='M 144,432L 144,320' >
-	<title>Fk user_post_likes_owner_id_fkey
-user_post_likes ref users ( owner_id -&gt; id )</title>
-</path>
-<path transform='translate(8,0)' marker-start='url(#foot0)' marker-end='url(#arrow1u)'  class='dotted '  d='M 144,432L 144,320' ><title>Fk user_post_likes_owner_id_fkey
-user_post_likes ref users ( owner_id -&gt; id )</title></path>
-<text x='147' y='430' transform='rotate(270 147,430)' class='relName'>owner_id</text>
 <!-- == Fk 'users_users2_parent_id_fkey' == -->
 <path id='users_users2_parent_id_fkey'  onmouseover="hghl(['users_users2_parent_id_fkey','public.users.parent_id','public.users.id'])" onmouseout="uhghl(['users_users2_parent_id_fkey','public.users.parent_id','public.users.id'])" transform='translate(8,0)' class='unhighlight' d='M 224,304L 232,304Q 240,304 240,312L 240,328Q 240,336 232,336L 216,336Q 208,336 208,328L 208,320' >
 	<title>Fk users2_parent_id_fkey
@@ -347,26 +339,23 @@ timestamp</title><text x='493' y='260' text-anchor='end' class='colType'>d</text
 bigint</title><a xlink:href='#public.post'><use id='fk' x='484' y='316' xlink:href='#fk'/><title>References post ( parent_post_id -&gt; id ) </title></a>
 
 <!-- == Table 'user_post_likes' == -->
-<rect id='depict_public.user_post_likes' class='entity' style='stroke:none;' x='112' y='440' width='128' height='96' rx='8' ry='8' />
+<rect id='depict_public.user_post_likes' class='entity' style='stroke:none;' x='112' y='440' width='128' height='80' rx='8' ry='8' />
 <path d='M 112 468 L 112 448 Q 112 440 120 440 L 232 440 Q 240 440 240 448 L 240 468 L112 468 ' style='fill:url(#tbg_BED3F4);stroke-width:0;' />
-<rect class='entity' x='112' y='440' width='128' height='96' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
+<rect class='entity' x='112' y='440' width='128' height='80' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
 <a xlink:href='#public.user_post_likes'><text x='118' y='459' >user_post_likes</text><title>Table public.user_post_likes</title></a>
   <text id='public.user_post_likes.liker_id' x='131' y='487' onmouseover="hghl(['user_post_likes_user_post_likes_liker_id_fkey','public.users.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_liker_id_fkey','public.users.id'])">liker_id</text><title>liker_id
 bigint</title><a xlink:href='#public.user_post_likes'><use id='fk' x='228' y='476' xlink:href='#fk'/><title>References users ( liker_id -&gt; id ) </title></a>
-  <text id='public.user_post_likes.owner_id' x='131' y='503' onmouseover="hghl(['user_post_likes_user_post_likes_owner_id_fkey','public.users.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_owner_id_fkey','public.users.id'])">owner_id</text><title>owner_id
-bigint</title><a xlink:href='#public.user_post_likes'><use id='fk' x='228' y='492' xlink:href='#fk'/><title>References users ( owner_id -&gt; id ) </title></a>
-  <text id='public.user_post_likes.post_id' x='131' y='519' onmouseover="hghl(['user_post_likes_user_post_likes_post_id_fkey','public.post.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_post_id_fkey','public.post.id'])">post_id</text><title>post_id
-bigint</title><a xlink:href='#public.user_post_likes'><use id='fk' x='228' y='508' xlink:href='#fk'/><title>References post ( post_id -&gt; id ) </title></a>
+  <text id='public.user_post_likes.post_id' x='131' y='503' onmouseover="hghl(['user_post_likes_user_post_likes_post_id_fkey','public.post.id'])" onmouseout="uhghl(['user_post_likes_user_post_likes_post_id_fkey','public.post.id'])">post_id</text><title>post_id
+bigint</title><a xlink:href='#public.user_post_likes'><use id='fk' x='228' y='492' xlink:href='#fk'/><title>References post ( post_id -&gt; id ) </title></a>
 
 <!-- == Table 'users' == -->
 <rect id='depict_public.users' class='entity' style='stroke:none;' x='112' y='184' width='112' height='128' rx='8' ry='8' />
 <path d='M 112 212 L 112 192 Q 112 184 120 184 L 216 184 Q 224 184 224 192 L 224 212 L112 212 ' style='fill:url(#tbg_BED3F4);stroke-width:0;' />
 <rect class='entity' x='112' y='184' width='112' height='128' rx='8' ry='8' style='fill:none;stroke:#CBD6E8'/>
 <a xlink:href='#public.users'><text x='145' y='203' >users</text><title>Table public.users</title></a>
-  <use id='nn' x='114' y='221' xlink:href='#nn'/><use id='pk' x='114' y='220' xlink:href='#pk'><title>Pk users2_pkey ( id ) </title></use><text id='public.users.id' x='131' y='231' onmouseover="hghl(['post_post_owner_id_fkey','public.post.owner_id','user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','user_post_likes_user_post_likes_owner_id_fkey','public.user_post_likes.owner_id','users_users2_parent_id_fkey','public.users.parent_id'])" onmouseout="uhghl(['post_post_owner_id_fkey','public.post.owner_id','user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','user_post_likes_user_post_likes_owner_id_fkey','public.user_post_likes.owner_id','users_users2_parent_id_fkey','public.users.parent_id'])">id</text><title>id
+  <use id='nn' x='114' y='221' xlink:href='#nn'/><use id='pk' x='114' y='220' xlink:href='#pk'><title>Pk users2_pkey ( id ) </title></use><text id='public.users.id' x='131' y='231' onmouseover="hghl(['post_post_owner_id_fkey','public.post.owner_id','user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','users_users2_parent_id_fkey','public.users.parent_id'])" onmouseout="uhghl(['post_post_owner_id_fkey','public.post.owner_id','user_post_likes_user_post_likes_liker_id_fkey','public.user_post_likes.liker_id','users_users2_parent_id_fkey','public.users.parent_id'])">id</text><title>id
 * bigint</title><a xlink:href='#public.users'><use id='ref' x='212' y='220' xlink:href='#ref'/><title>Referred by post ( owner_id -&gt; id ) 
 Referred by user_post_likes ( liker_id -&gt; id ) 
-Referred by user_post_likes ( owner_id -&gt; id ) 
 Referred by users ( parent_id -&gt; id ) </title></a>
   <text id='public.users.created' x='131' y='247'>created</text><title>created
 timestamp</title><text x='221' y='244' text-anchor='end' class='colType'>d</text>  <text id='public.users.updated' x='131' y='263'>updated</text><title>updated
@@ -542,11 +531,6 @@ function installListeners( svgContainer, svgImage ){
 	</tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td>
-		<td><a name='public.user_post_likes_owner_id'>owner&#95;id</a></td>
-		<td> bigint  </td>
-	</tr>
-	<tr>
-		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td>
 		<td><a name='public.user_post_likes_post_id'>post&#95;id</a></td>
 		<td> bigint  </td>
 	</tr>
@@ -558,10 +542,6 @@ function installListeners( svgContainer, svgImage ){
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td><td>user_post_likes_liker_id_fkey</td>
 		<td > (liker&#95;id) &#8594; <a href='#public&#46;users'  onclick="window.scrollTo(60, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(id) </td>
-	</tr>
-	<tr>
-		<td><svg width='14' height='14'><use xlink:href='#fk'/></svg></td><td>user_post_likes_owner_id_fkey</td>
-		<td > (owner&#95;id) &#8594; <a href='#public&#46;users'  onclick="window.scrollTo(60, 192);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.users').classList.add('palpable'); return false;">users</a>(id) </td>
 	</tr>
 </tbody>
 </table></div></div>
@@ -618,10 +598,6 @@ function installListeners( svgContainer, svgImage ){
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#ref'/></svg></td><td>user_post_likes_liker_id_fkey</td>
 		<td > (id) &#8592; <a href='#public&#46;user&#95;post&#95;likes'  onclick="window.scrollTo(60, 448);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.user_post_likes').classList.add('palpable'); return false;">user&#95;post&#95;likes</a>(liker&#95;id) </td>
-	</tr>
-	<tr>
-		<td><svg width='14' height='14'><use xlink:href='#ref'/></svg></td><td>user_post_likes_owner_id_fkey</td>
-		<td > (id) &#8592; <a href='#public&#46;user&#95;post&#95;likes'  onclick="window.scrollTo(60, 448);var nodes = document.getElementsByClassName('palpable');for (var i = 0; i < nodes.length; i++) { nodes[i].classList.remove('palpable');}; document.getElementById('depict_public.user_post_likes').classList.add('palpable'); return false;">user&#95;post&#95;likes</a>(owner&#95;id) </td>
 	</tr>
 	<tr>
 		<td><svg width='14' height='14'><use xlink:href='#ref'/></svg></td><td>users2_parent_id_fkey</td>

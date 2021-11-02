@@ -74,20 +74,19 @@ public class PostService {
         // UserNotFoundException if any of the users are not found
         // UserAlreadyLikesPostException if the like already exists
 
-        User owner = userService.findById(userPostLikeRequestDto.getOwnerId());
-        Post post = this.findByIdAndOwner(postId, owner.getId());
+        Post post = this.findById(postId);
         User liker = userService.findById(userPostLikeRequestDto.getLikerId());
-        if (userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
-                (liker.getId(), postId, owner.getId())) {
+        if (userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
+                (liker.getId(), postId)) {
             log.error
                     ("User {} has already liked post {} from user {}",
-                            userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId());
+                            userPostLikeRequestDto.getLikerId(), postId);
             throw new UserAlreadyLikesPostException("User " + userPostLikeRequestDto.getLikerId()
-                    + " has already liked post " + postId + " from the owner " + owner.getId());
+                    + " has already liked post " + postId + " from the owner ");
         }
 
         userPostLikeRepository.save(new UserPostLike(
-                new UserPostLikeId(liker.getId(), post.getId(), owner.getId())
+                new UserPostLikeId(liker.getId(), post.getId())
         ));
         return postRepository.save(post);
     }
@@ -98,19 +97,13 @@ public class PostService {
         // Also, if this post was inherited from the owner parent,
         // the likeCount from the parent post is added up
 
-        Optional<User> parent = owner.getParent();
-        ArrayList<Long> userIds = new ArrayList<>();
-        userIds.add(owner.getId());
-        if (parent.isPresent()) {
-            userIds.add(parent.get().getId());
-        }
         ArrayList<Long> postIds = new ArrayList<>();
         postIds.add(post.getId());
         Optional<Post> parentPost = post.getParentPost();
         if (parentPost.isPresent()) {
             postIds.add(parentPost.get().getId());
         }
-        return userPostLikeRepository.countByUserPostLikeIdPostIdInAndUserPostLikeIdOwnerIdIn(postIds, userIds);
+        return userPostLikeRepository.countByUserPostLikeIdPostIdIn(postIds);
     }
 
     //Annotate as transactional so we don't have to add post.removeUserPostLike()
@@ -123,17 +116,17 @@ public class PostService {
         // UserNotFoundException if any of the users are not found
         // UserDoesNotLikePostException if the user likerId didnt like the post before
 
-        if (!userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
-                (userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId())) {
+        if (!userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
+                (userPostLikeRequestDto.getLikerId(), postId)) {
             log.error
                     ("User {} has not liked post {} from owner {}",
-                            userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId());
+                            userPostLikeRequestDto.getLikerId(), postId);
             throw new UserDoesNotLikePostException("User " + userPostLikeRequestDto.getLikerId()
-                    + " does not like post " + postId + " from owner " + userPostLikeRequestDto.getOwnerId());
+                    + " does not like post " + postId);
         }
 
-        userPostLikeRepository.deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
-                (userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId());
+        userPostLikeRepository.deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
+                (userPostLikeRequestDto.getLikerId(), postId);
         return postRepository.getById(postId);
     }
 

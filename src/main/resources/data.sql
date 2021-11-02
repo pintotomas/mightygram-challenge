@@ -200,155 +200,117 @@ VALUES      (10,
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (1,
-             1,
+             1);
+
+INSERT INTO user_post_likes
+            (liker_id,
+             post_id)
+VALUES      (1,
+             3);
+
+INSERT INTO user_post_likes
+            (liker_id,
+             post_id)
+VALUES      (1,
+             4);
+
+INSERT INTO user_post_likes
+            (liker_id,
+             post_id)
+VALUES      (1,
              6);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
-VALUES      (1,
-             3,
-             6);
-
-INSERT INTO user_post_likes
-            (liker_id,
-             post_id, 
-            owner_id)
-VALUES      (1,
-             4,
-             6);
-
-INSERT INTO user_post_likes
-            (liker_id,
-             post_id, 
-            owner_id)
-VALUES      (1,
-             6,
-             6);
-
-INSERT INTO user_post_likes
-            (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (2,
-             1,
-             6);
+             1);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (2,
-             2,
-             6);
+             2);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (2,
-             8,
-             6);
+             8);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (3,
-             8,
-             6);
+             8);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (3,
-             4,
-             6);
+             4);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (3,
-             5,
-             6);
+             5);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (4,
-             7,
-             6);
+             7);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (4,
-             9,
+             9);
+
+INSERT INTO user_post_likes
+            (liker_id,
+             post_id)
+VALUES      (5,
+             1);
+
+INSERT INTO user_post_likes
+            (liker_id,
+             post_id)
+VALUES      (5,
+             2);
+
+INSERT INTO user_post_likes
+            (liker_id,
+             post_id)
+VALUES      (5,
+             3);
+
+INSERT INTO user_post_likes
+            (liker_id,
+             post_id)
+VALUES      (5,
+             4);
+
+INSERT INTO user_post_likes
+            (liker_id,
+             post_id)
+VALUES      (5,
              6);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id)
 VALUES      (5,
-             1,
-             6);
+             7);
 
 INSERT INTO user_post_likes
             (liker_id,
-             post_id, 
-            owner_id)
+             post_id                                                    )
 VALUES      (5,
-             2,
-             6);
-
-INSERT INTO user_post_likes
-            (liker_id,
-             post_id, 
-            owner_id)
-VALUES      (5,
-             3,
-             6);
-
-INSERT INTO user_post_likes
-            (liker_id,
-             post_id,
-             owner_id)
-VALUES      (5,
-             4,
-             6);
-
-INSERT INTO user_post_likes
-            (liker_id,
-             post_id,
-              owner_id)
-VALUES      (5,
-             6,
-             6);
-
-INSERT INTO user_post_likes
-            (liker_id,
-             post_id,
-              owner_id)
-VALUES      (5,
-             7,
-             6);
-
-INSERT INTO user_post_likes
-            (liker_id,
-             post_id,
-              owner_id)
-VALUES      (5,
-             8,
-             6);
+             8);
 
 ALTER TABLE users ALTER COLUMN id RESTART WITH 6;
 ALTER TABLE post ALTER COLUMN id RESTART WITH 11;
