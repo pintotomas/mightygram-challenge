@@ -1,6 +1,5 @@
 package com.model;
 
-import com.repositories.UserPostLikeRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,11 +28,11 @@ public class Post extends AuditableEntity {
     @NotNull
     @Column(length = 2048)
     @Size(max = 2048)
-    private String photoUrl;
+    private String filename;
 
-    public Post(String description, String photoUrl) {
+    public Post(String description, String filename) {
         this.description = description;
-        this.photoUrl = photoUrl;
+        this.filename = filename;
         this.userPostLikes = new ArrayList<>();
     }
 

@@ -53,120 +53,120 @@ INSERT INTO post
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (1,
              '5/5/2021',
              '12/16/2020',
              'Ágios Týchon',
-             'http://dummyimage.com/189x244.png/cc0000/ffffff');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (2,
              '2/5/2021',
              '11/18/2020',
              'Syntul',
-             'http://dummyimage.com/163x128.png/dddddd/000000');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (3,
              '11/21/2020',
              '12/11/2020',
              'Sidowayah Lor',
-             'http://dummyimage.com/152x139.png/dddddd/000000');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (4,
              '4/16/2021',
              '2/12/2021',
              'Ludza',
-             'http://dummyimage.com/121x170.png/ff4444/ffffff');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (5,
              '5/19/2021',
              '9/5/2021',
              'Zhihe',
-             'http://dummyimage.com/209x240.png/cc0000/ffffff');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (6,
              '7/11/2021',
              '11/11/2020',
              'Bang Len',
-             'http://dummyimage.com/204x165.png/dddddd/000000');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (7,
              '7/8/2021',
              '7/29/2021',
              'Furudate',
-             'http://dummyimage.com/230x214.png/dddddd/000000');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (8,
              '5/27/2021',
              '4/22/2021',
              'Donetsk',
-             'http://dummyimage.com/239x104.png/ff4444/ffffff');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (9,
              '5/14/2021',
              '4/17/2021',
              'Nandayure',
-             'http://dummyimage.com/235x229.png/ff4444/ffffff');
+             'img.png');
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             photo_url)
+             filename)
 VALUES      (10,
              '6/24/2021',
              '8/6/2021',
              'Manūjān',
-             'http://dummyimage.com/127x162.png/dddddd/000000');
+             'img.png');
 
 INSERT INTO user_post_likes
             (user_id,
@@ -281,3 +281,6 @@ INSERT INTO user_post_likes
              post_id)
 VALUES      (5,
              8);
+
+ALTER TABLE users ALTER COLUMN id RESTART WITH 6;
+ALTER TABLE post ALTER COLUMN id RESTART WITH 11;
