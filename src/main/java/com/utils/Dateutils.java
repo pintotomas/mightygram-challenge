@@ -9,4 +9,8 @@ public class Dateutils {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
         return localDateTime.format(formatter);
     }
+
+    public static LocalDateTime now() {
+        return LocalDateTime.now();
+    }
 }
