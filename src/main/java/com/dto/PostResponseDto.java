@@ -21,12 +21,17 @@ public class PostResponseDto {
     @Size(max = 1500)
     private String description;
 
+    @NotNull
     private String filename;
 
     @NotNull
     private String created;
 
+    @NotNull
     private Integer likeCount;
+
+    @NotNull
+    private Long ownerId;
 
     //TODO could add time since creation
 
@@ -36,5 +41,6 @@ public class PostResponseDto {
         this.filename = post.getFilename();
         this.created = Dateutils.toTimeStamp(post.getCreated());
         this.likeCount = post.getUserPostLikes().size();
+        this.ownerId = post.getOwner().getId();
     }
 }
