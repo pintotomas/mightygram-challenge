@@ -1,7 +1,7 @@
 # mightygram-challenge
 [![Java Build with Maven](https://github.com/pintotomas/mightygram-challenge/actions/workflows/maven.yml/badge.svg)](https://github.com/pintotomas/mightygram-challenge/actions/workflows/maven.yml)
 
-#DbSchema documentation
+## DbSchema documentation
 Generated using [DbSchema](https://dbschema.com)
 
 ## Technologies
@@ -47,11 +47,6 @@ Then you have to modify application.properties accordingly, for example, the db 
 
 If you use another name or port, make sure to change it.
 
-<a name='layout1'>### Main Layout
-![img](./MainLayout.svg)
-
-
-
 ### Table post
 | Idx | Field Name | Data Type |
 |---|---|---|
@@ -86,15 +81,17 @@ If you use another name or port, make sure to change it.
 | *🔍 | <a name='public.users_username'>username</a>| varchar&#40;50&#41;  |
 | ⬈ | <a name='public.users_parent_id'>parent&#95;id</a>| bigint  |
 | Indexes |
-| 🔑 | users2&#95;pkey || ON id|
-| 🔍  | users2&#95;username&#95;key || ON username|
+| 🔑 | users&#95;pkey || ON id|
+| 🔍  | users&#95;username&#95;key || ON username|
 | Foreign Keys |
-|  | users2_parent_id_fkey | ( parent&#95;id ) ref [public&#46;users](#users) (id) |
+|  | users_parent_id_fkey | ( parent&#95;id ) ref [public&#46;users](#users) (id) |
 
 
 ## Diagrams
 
 ### Database Diagram (ERD)
+
+![dbschema_documentation](https://user-images.githubusercontent.com/15394292/139923991-1e8329d8-1cd6-4ed3-81f1-8f286c25e74a.png)
 
 ### Flow Diagrams
 
