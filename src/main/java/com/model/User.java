@@ -1,17 +1,20 @@
 package com.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "users")
+@NoArgsConstructor
 public class User extends AuditableEntity {
 
     @Id
@@ -23,6 +26,11 @@ public class User extends AuditableEntity {
     @Size(max = 50)
     private String username;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPostLikeId.userId")
     private List<UserPostLike> userPostLikes;
+
+    public User(String username) {
+        this.username = username;
+        this.userPostLikes = new ArrayList<>();
+    }
 }

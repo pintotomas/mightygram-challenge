@@ -1,5 +1,6 @@
 package com.model;
 
+import com.repositories.UserPostLikeRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,8 +34,9 @@ public class Post extends AuditableEntity {
     public Post(String description, String photoUrl) {
         this.description = description;
         this.photoUrl = photoUrl;
+        this.userPostLikes = new ArrayList<>();
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPostLikeId.postId")
     private List<UserPostLike> userPostLikes;
 }
