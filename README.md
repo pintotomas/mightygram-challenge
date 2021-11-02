@@ -5,7 +5,7 @@
 
 ### Database Diagram (ERD)
 
-![dbschema_documentation](https://user-images.githubusercontent.com/15394292/139922485-870ea7cd-92a5-423e-a3e8-7c82d16abec0.png)
+![dbschema_documentation](https://user-images.githubusercontent.com/15394292/139922850-e8bd87d4-3cce-4080-98c1-5b5cb58db995.jpeg)
 
 ### Flow Diagrams
 
