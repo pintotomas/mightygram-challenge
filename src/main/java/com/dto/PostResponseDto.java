@@ -20,7 +20,7 @@ public class PostResponseDto {
     private String description;
 
     @NotNull
-    @Size(max = 1500)
+    @Size(max = 2048)
     private String photoUrl;
 
     @NotNull
