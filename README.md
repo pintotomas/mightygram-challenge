@@ -1,6 +1,27 @@
 # mightygram-challenge
 [![Java Build with Maven](https://github.com/pintotomas/mightygram-challenge/actions/workflows/maven.yml/badge.svg)](https://github.com/pintotomas/mightygram-challenge/actions/workflows/maven.yml)
 
+## Diagrams
+
+### Database Diagram (ERD)
+
+![dbschema_documentation](https://user-images.githubusercontent.com/15394292/139922485-870ea7cd-92a5-423e-a3e8-7c82d16abec0.png)
+
+### Flow Diagrams
+
+#### Post Creation
+
+![post_creation](https://user-images.githubusercontent.com/15394292/139922252-731b2ef7-cd41-4b49-a113-f3710668beea.jpeg)
+
+#### Liking a post
+
+![post_like](https://user-images.githubusercontent.com/15394292/139922338-a5d2f8c0-1f96-40f4-8bef-7e81328da18d.jpeg)
+
+#### Counting a post like
+
+![count_post_like](https://user-images.githubusercontent.com/15394292/139922374-dfda1cce-0812-4b22-87e9-e75a4cb609d5.jpeg)
+
+
 ## Api Documentation
 
 **Base Url**: /posts
