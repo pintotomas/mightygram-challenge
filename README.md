@@ -3,6 +3,10 @@
 
 ## Diagrams
 
+### Database Diagram (ERD)
+
+![dbschema_documentation](https://user-images.githubusercontent.com/15394292/139922485-870ea7cd-92a5-423e-a3e8-7c82d16abec0.png)
+
 ### Flow Diagrams
 
 #### Post Creation
