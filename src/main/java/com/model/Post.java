@@ -27,8 +27,8 @@ public class Post extends AuditableEntity {
     private String description;
 
     @NotNull
-    @Column(length = 1500)
-    @Size(max = 1500)
+    @Column(length = 2048)
+    @Size(max = 2048)
     private String photoUrl;
 
     public Post(String description, String photoUrl) {
