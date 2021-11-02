@@ -1,9 +1,6 @@
 # mightygram-challenge
 [![Java Build with Maven](https://github.com/pintotomas/mightygram-challenge/actions/workflows/maven.yml/badge.svg)](https://github.com/pintotomas/mightygram-challenge/actions/workflows/maven.yml)
 
-## DbSchema documentation
-Generated using [DbSchema](https://dbschema.com)
-
 ## Technologies
 
 
@@ -16,6 +13,8 @@ Generated using [DbSchema](https://dbschema.com)
 - Docker 20.10.6 (Optional)
 
 - docker-compose 1.21.2 (Optional)
+
+I used these technologies because I've been working lately with them and felt comfortable with to develop a solution within the deadline
 
 ## Running the application with docker
 
@@ -37,7 +36,7 @@ Then, go to src/main/docker and run
 
 If everything ran as expected, you should be able to communicate with the server at localhost:8080 
 
-# Running without docker
+## Running without docker
 
 Make sure to have installed PostgreSQL 13, create a db and assign a user for it
 
@@ -46,6 +45,17 @@ Then you have to modify application.properties accordingly, for example, the db 
 `spring.datasource.url=jdbc:postgresql://localhost:5432/mightygram`
 
 If you use another name or port, make sure to change it.
+
+For running the application:
+
+mvn spring-boot:run
+
+And for the tests:
+
+mvn clean test
+
+## DbSchema documentation
+Generated using [DbSchema](https://dbschema.com)
 
 ### Table post
 | Idx | Field Name | Data Type |
