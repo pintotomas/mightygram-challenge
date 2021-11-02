@@ -14,7 +14,15 @@
 
 - docker-compose 1.21.2 (Optional)
 
+- Heroku
+
 I used these technologies because I've been working lately with them and felt comfortable with to develop a solution within the deadline
+
+## Deployment
+
+The application was deployed to heroku, the url is https://murmuring-cliffs-75928.herokuapp.com 
+
+You will find Postman collections to test the API both in local and heroku servers
 
 ## Running the application with docker
 
@@ -336,6 +344,14 @@ If a user tries to parent self, the response will be:
     "errorNumber": 109,
     "message": "User 1 attempted to parent self"
 }`
+
+## Things to improve
+
+- Add swagger
+
+- There should be a session for users, not pass their id in the requests since any client could do anything they want with any user
+
+- I couldnt configure the github CI to run integration tests
 
 
 
