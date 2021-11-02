@@ -30,12 +30,17 @@ public class Post extends AuditableEntity {
     @Size(max = 2048)
     private String filename;
 
-    public Post(String description, String filename) {
-        this.description = description;
-        this.filename = filename;
-        this.userPostLikes = new ArrayList<>();
-    }
+    @NotNull
+    @OneToOne
+    private User owner;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userPostLikeId.postId")
     private List<UserPostLike> userPostLikes;
+
+    public Post(String description, String filename, User owner) {
+        this.description = description;
+        this.filename = filename;
+        this.userPostLikes = new ArrayList<>();
+        this.owner = owner;
+    }
 }

@@ -25,6 +25,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -61,7 +62,7 @@ public class PostServiceTest {
 
     @Test
     void testFindByIdSuccess() {
-        Post post = new Post("description", "url");
+        Post post = new Post("description", "url", new User());
         post.setId(1L);
         when(postRepository.findById(1L)).thenReturn(Optional.of(post));
         Post foundPost = postService.findById(1L);
@@ -97,7 +98,7 @@ public class PostServiceTest {
         User user = new User("userTest");
         user.setId(1L);
         when(userService.findById(1L)).thenReturn(user);
-        Post post = new Post("description", "url");
+        Post post = new Post("description", "url", new User());
         post.setId(1L);
         when(postRepository.findById(1L)).thenReturn(Optional.of(post));
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
@@ -148,7 +149,30 @@ public class PostServiceTest {
         verify(postRepository, times(1)).save(postArgumentCaptor.capture());
         Assertions.assertTrue(postArgumentCaptor.getValue().getFilename().contains("file"));
         Assertions.assertTrue(postArgumentCaptor.getValue().getDescription().equals("description"));
+    }
 
+    @Test
+    void testCreatePostParentWithOneChild() {
+        PostCreateRequestDto postCreateRequestDto = new PostCreateRequestDto();
+        postCreateRequestDto.setDescription("description");
+        postCreateRequestDto.setOwnerId(6L);
+        User child = new User();
+        child.setId(7L);
+        User user = new User();
+        user.setId(6L);
+        user.setUsername("username");
+        when(userService.findById(6L)).thenReturn(user);
+        when(userService.findAllChildren(user)).thenReturn(Arrays.asList(child));
+        MockMultipartFile mockMultipartFile = new MockMultipartFile(
+                "file", "post.jpg", MediaType.IMAGE_JPEG_VALUE, "Hello, World!".getBytes());
+        postService.create(postCreateRequestDto, mockMultipartFile);
+        verify(postRepository, times(2)).save(postArgumentCaptor.capture());
+        Assertions.assertTrue(postArgumentCaptor.getAllValues().get(0).getFilename().contains("file"));
+        Assertions.assertTrue(postArgumentCaptor.getAllValues().get(0).getDescription().equals("description"));
+        Assertions.assertTrue(postArgumentCaptor.getAllValues().get(0).getOwner().equals(user));
+        Assertions.assertTrue(postArgumentCaptor.getAllValues().get(1).getFilename().contains("file"));
+        Assertions.assertTrue(postArgumentCaptor.getAllValues().get(1).getDescription().equals("description"));
+        Assertions.assertTrue(postArgumentCaptor.getAllValues().get(1).getOwner().equals(child));
     }
 
 

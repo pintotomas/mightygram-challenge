@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
+
 @Service
 @Slf4j
 public class UserService {
@@ -36,10 +39,14 @@ public class UserService {
         User child = this.findById(childId);
         if (child.getParent().isPresent()) {
             log.error("User {} already has a parent", parentId);
-            throw new UserAlreadyHasAParentException("User {} has already a parent assigned");
+            throw new UserAlreadyHasAParentException("User " + childId + " has already a parent assigned");
         }
         User parent = this.findById(parentId);
         child.setParent(parent);
         return userRepository.save(child);
+    }
+
+    public Collection<User> findAllChildren(User parent) {
+        return userRepository.findAllByParent(parent);
     }
 }

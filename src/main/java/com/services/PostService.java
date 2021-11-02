@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 
 @Service
 @Slf4j
@@ -88,10 +89,15 @@ public class PostService {
     @Transactional
     public Post create(PostCreateRequestDto postCreateRequestDto, MultipartFile photo) {
         //TODO if rollback, delete file
-        User owner = userService.findById(postCreateRequestDto.getOwnerId());
+        User parent = userService.findById(postCreateRequestDto.getOwnerId());
         String fileName = FileUtils.generateFileName(photo.getName());
         storageService.store(photo, fileName);
-        Post post = new Post(postCreateRequestDto.getDescription(), fileName);
-        return postRepository.save(post);
+        Post post = new Post(postCreateRequestDto.getDescription(), fileName, parent);
+        Collection<User> ownerChildren = userService.findAllChildren(parent);
+        post = postRepository.save(post);
+        ownerChildren.forEach(child ->
+            postRepository.save(new Post(postCreateRequestDto.getDescription(), fileName, child))
+        );
+        return post;
     }
 }

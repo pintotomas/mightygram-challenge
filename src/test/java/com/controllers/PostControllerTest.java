@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.model.Post;
+import com.model.User;
 import com.services.PostService;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
@@ -56,7 +57,7 @@ public class PostControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(postController)
                 .setControllerAdvice(new PostControllerAdvisor())
                 .build();
-        post = new Post("description", "url");
+        post = new Post("description", "url", new User());
         LocalDateTime localDateTime = LocalDateTime.of(2021, 10, 30, 16, 39);
         post.setCreated(localDateTime);
         post.setUserPostLikes(Arrays.asList());

@@ -63,120 +63,140 @@ INSERT INTO post
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (1,
              '5/5/2021',
              '12/16/2020',
              'Ágios Týchon',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (2,
              '2/5/2021',
              '11/18/2020',
              'Syntul',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (3,
              '11/21/2020',
              '12/11/2020',
              'Sidowayah Lor',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (4,
              '4/16/2021',
              '2/12/2021',
              'Ludza',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (5,
              '5/19/2021',
              '9/5/2021',
              'Zhihe',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (6,
              '7/11/2021',
              '11/11/2020',
              'Bang Len',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (7,
              '7/8/2021',
              '7/29/2021',
              'Furudate',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (8,
              '5/27/2021',
              '4/22/2021',
              'Donetsk',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (9,
              '5/14/2021',
              '4/17/2021',
              'Nandayure',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO post
             (id,
              created,
              updated,
              description,
-             filename)
+             filename,
+             owner_id)
 VALUES      (10,
              '6/24/2021',
              '8/6/2021',
              'Manūjān',
-             'img.png');
+             'img.png',
+             6);
 
 INSERT INTO user_post_likes
             (liker_id,
