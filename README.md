@@ -3,8 +3,6 @@
 
 ## Api Documentation
 
-## Posts
-
 **Base Url**: /posts
 
 ### Creating a Post
@@ -74,6 +72,157 @@ If the post is not found, 404 NOT FOUND status will be sent with a body like:
     "errorNumber": 101,
     "message": "Post with id 123 not found"
 }`
+
+For getting the associated resource to the post (the image) you must make a request like this one:
+
+curl --location --request GET 'http://localhost:8080/posts/11/photo'
+
+If the post is found and there are no storage errors you will get the associated file. 
+
+If there are storage problems, you will get one of these errors:
+
+`{
+    "errorCode": "STORAGE_ERROR",
+    "errorNumber": 106,
+    "message": "..."
+}`
+
+`{
+    "errorCode": "FILE_NOT_FOUND",
+    "errorNumber": 107,
+    "message": "..."
+}`
+
+### Getting Posts paginated
+
+To do so, send a request like this:
+
+curl --location --request GET 'http://localhost:8080/posts/all?page=0&size=2'
+
+The request parameters are page and size. The only restriction is that the minimum of the page is 0 and the size is 1.
+
+You should get a response like this:
+
+`{
+    "content": [
+        {
+            "id": 11,
+            "description": "description",
+            "filename": "photo-2021-11-02T14:05:17.809011718",
+            "created": "2021-11-02T14:05:17.834082",
+            "likeCount": 0,
+            "ownerId": 1
+        },
+        {
+            "id": 6,
+            "description": "Bang Len",
+            "filename": "img.png",
+            "created": "2021-07-11T00:00:00",
+            "likeCount": 2,
+            "ownerId": 6
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "empty": false,
+            "sorted": true,
+            "unsorted": false
+        },
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 2,
+        "paged": true,
+        "unpaged": false
+    },
+    "totalPages": 6,
+    "totalElements": 11,
+    "last": false,
+    "size": 2,
+    "number": 0,
+    "sort": {
+        "empty": false,
+        "sorted": true,
+        "unsorted": false
+    },
+    "numberOfElements": 2,
+    "first": true,
+    "empty": false
+}`
+
+### Liking and disliking a post
+
+The requests are:
+
+curl --location --request POST 'http://localhost:8080/posts/11/like' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "likerId": 4,
+    "ownerId": 1
+}'
+
+And
+
+curl --location --request POST 'http://localhost:8080/posts/11/dislike' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "likerId": 4,
+    "ownerId": 1
+}'
+
+Both have the postId as a path variable and you must send a JSON with the likerId (The user who is liking the post) and the ownerId (The owner of the post you are liking)
+
+When liking, on success the post information will be returned and you should see an increase in the likeCount (or decreasing if disliking)
+
+Aside of post or user not found errors you can also expect responses like this if the user has already liked a post or if the user didnt like a post before disliking it:
+
+412 PRECONDITION FAILED
+
+`{
+    "errorCode": "POST_ALREADY_LIKED",
+    "errorNumber": 103,
+    "message": "User 4 has already liked post 11 from the owner 1"
+}`
+
+412 PRECONDITION FAILED
+
+`{
+    "errorCode": "POST_NOT_LIKED",
+    "errorNumber": 102,
+    "message": "User 4 does not like post 11 from owner 1"
+}`
+
+### Registering a parenthood
+
+To do so, send a request like this:
+
+curl --location --request POST 'http://localhost:8080/users/parenthood' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "parentId": 1,
+    "childId": 2
+}'
+
+The json body contains parentId and childId. Returns OK if both exist and the child doesnt have a parent. If the child already has a parent, the response will be:
+
+412 PRECONDITION FAILED
+
+`{
+    "errorCode": "USER_ALREADY_HAS_PARENT",
+    "errorNumber": 108,
+    "message": "User 2 has already a parent assigned"
+}`
+
+If a user tries to parent self, the response will be:
+
+405 METHOD NOT ALLOWED
+
+`{
+    "errorCode": "USER_CANT_PARENT_SELF",
+    "errorNumber": 109,
+    "message": "User 1 attempted to parent self"
+}`
+
+
 
 
 
