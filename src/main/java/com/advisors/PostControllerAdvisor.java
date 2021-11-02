@@ -2,7 +2,6 @@ package com.advisors;
 
 import com.dto.ErrorResponseDto;
 import com.exceptions.*;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,13 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.validation.ConstraintViolationException;
 
 @RestControllerAdvice
-@Slf4j
-public class PostControllerAdvisor {
-
-    private ErrorResponseDto createErrorResponseDto(ErrorCode errorCode, String message) {
-
-        return new ErrorResponseDto(errorCode, message);
-    }
+public class PostControllerAdvisor extends GeneralControllerAdvisor {
 
     @ExceptionHandler(value = PostNotFoundException.class)
     public ResponseEntity<ErrorResponseDto> postNotFoundException(PostNotFoundException e) {
@@ -40,14 +33,6 @@ public class PostControllerAdvisor {
 
         return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(createErrorResponseDto(
                 ErrorCode.POST_NOT_LIKED, e.getLocalizedMessage()
-        ));
-    }
-
-    @ExceptionHandler(value = UserNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> userNotFoundException(UserNotFoundException e) {
-
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createErrorResponseDto(
-                ErrorCode.USER_NOT_FOUND, e.getLocalizedMessage()
         ));
     }
 
