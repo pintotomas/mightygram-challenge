@@ -4,8 +4,48 @@
 #DbSchema documentation
 Generated using [DbSchema](https://dbschema.com)
 
+## Technologies
 
 
+- Java 11
+
+- PostgreSQL 13 (Optional)
+
+- Apache Maven 3.6
+
+- Docker 20.10.6 (Optional)
+
+- docker-compose 1.21.2 (Optional)
+
+## Running the application with docker
+
+First, I had to make sure there werent previous volumes that wouldnt cause me problems so i ran:
+
+`docker system prune --volumes`
+
+Then, on the source folder (Where Dockerfile is) run
+
+`./mvnw package && java -jar target/gs-spring-boot-docker-0.1.0.jar`
+
+Then, you have to build the docker image:
+
+`docker build -t springio/gs-spring-boot-docker .`
+
+Then, go to src/main/docker and run 
+
+`docker-compose up`
+
+If everything ran as expected, you should be able to communicate with the server at localhost:8080 
+
+# Running without docker
+
+Make sure to have installed PostgreSQL 13, create a db and assign a user for it
+
+Then you have to modify application.properties accordingly, for example, the db I'm creating is at the url:
+
+`spring.datasource.url=jdbc:postgresql://localhost:5432/mightygram`
+
+If you use another name or port, make sure to change it.
 
 <a name='layout1'>### Main Layout
 ![img](./MainLayout.svg)
