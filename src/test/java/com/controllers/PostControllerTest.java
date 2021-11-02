@@ -1,6 +1,7 @@
 package com.controllers;
 
 import com.advisors.PostControllerAdvisor;
+import com.dto.PostCreateRequestDto;
 import com.dto.UserPostLikeRequestDto;
 import com.exceptions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -246,5 +248,56 @@ public class PostControllerTest {
         Assertions.assertEquals(ErrorCode.USER_NOT_FOUND.name(), json.get("errorCode"));
         Assertions.assertEquals(ErrorCode.USER_NOT_FOUND.getErrorNumber(), json.get("errorNumber"));
         Assertions.assertEquals(3, json.length());
+    }
+
+    @Test
+    public void whenCreatePostWithJpgPicture_thenUploadOk() throws Exception {
+        PostCreateRequestDto postCreateRequestDto =
+                new PostCreateRequestDto();
+        postCreateRequestDto.setDescription("Description");
+
+        MockMultipartFile file =
+                new MockMultipartFile(
+                        "file", "post.jpg", MediaType.IMAGE_JPEG_VALUE, "Hello, World!".getBytes());
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.multipart(postController.URL_MAPPING_POSTS)
+                        .file("photo", file.getBytes())
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .param("description", "description");
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void whenCreatePostWithPngPicture_thenUploadOk() throws Exception {
+        PostCreateRequestDto postCreateRequestDto =
+                new PostCreateRequestDto();
+        postCreateRequestDto.setDescription("Description");
+
+        MockMultipartFile file =
+                new MockMultipartFile(
+                        "file", "post.jpg", MediaType.IMAGE_PNG_VALUE, "Hello, World!".getBytes());
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.multipart(postController.URL_MAPPING_POSTS)
+                        .file("photo", file.getBytes())
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .param("description", "description");
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void whenCreatePostWithGifPicture_thenDontUpload() throws Exception {
+        PostCreateRequestDto postCreateRequestDto =
+                new PostCreateRequestDto();
+        postCreateRequestDto.setDescription("Description");
+
+        MockMultipartFile file =
+                new MockMultipartFile(
+                        "file", "post.jpg", MediaType.IMAGE_GIF_VALUE, "Hello, World!".getBytes());
+        RequestBuilder requestBuilder =
+                MockMvcRequestBuilders.multipart(postController.URL_MAPPING_POSTS)
+                        .file("photo", file.getBytes())
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .param("description", "description");
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isMethodNotAllowed());
     }
 }

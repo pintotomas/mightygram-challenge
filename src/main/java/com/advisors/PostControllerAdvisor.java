@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
+
 @RestControllerAdvice
 @Slf4j
 public class PostControllerAdvisor {
@@ -46,6 +48,14 @@ public class PostControllerAdvisor {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createErrorResponseDto(
                 ErrorCode.USER_NOT_FOUND, e.getLocalizedMessage()
+        ));
+    }
+
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponseDto> constraintViolationException(ConstraintViolationException e) {
+
+        return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(createErrorResponseDto(
+                ErrorCode.CONSTRAINT_VIOLATION, e.getLocalizedMessage()
         ));
     }
 

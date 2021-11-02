@@ -9,7 +9,8 @@ public enum ErrorCode {
     POST_NOT_FOUND(101),
     POST_NOT_LIKED(102),
     POST_ALREADY_LIKED(103),
-    USER_NOT_FOUND(104);
+    USER_NOT_FOUND(104),
+    CONSTRAINT_VIOLATION(105);
 
     private Integer errorNumber;
 
