@@ -19,5 +19,7 @@ curl --location --request POST 'http://localhost:8080/posts' \
 Parameters are:
 
 **photo**: A path to a file (It must be JPG or PNG)
+
 **description**: A description of the post
+
 **ownerId**: The user who is making the post
