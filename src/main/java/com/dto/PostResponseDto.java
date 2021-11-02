@@ -33,8 +33,6 @@ public class PostResponseDto {
     @NotNull
     private Long ownerId;
 
-    //TODO could add time since creation
-
     public PostResponseDto(Post post, Long likeCount) {
         this.id = post.getId();
         this.description = post.getDescription();
