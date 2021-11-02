@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -66,7 +62,7 @@ public class PostController {
             @RequestBody @Validated UserPostLikeRequestDto userPostLikeRequestDto
     ) {
         log.info("Requested to like post {} from user {}",
-                id, userPostLikeRequestDto.getUserId());
+                id, userPostLikeRequestDto.getLikerId());
         return ResponseEntity.ok(new PostResponseDto(postService.like(id, userPostLikeRequestDto)));
     }
 
@@ -77,7 +73,7 @@ public class PostController {
             @RequestBody @Validated UserPostLikeRequestDto userPostLikeRequestDto
     ) {
         log.info("Requested to dislike post {} from user {}",
-                id, userPostLikeRequestDto.getUserId());
+                id, userPostLikeRequestDto.getLikerId());
         return ResponseEntity.ok(new PostResponseDto(postService.dislike(id, userPostLikeRequestDto)));
     }
 

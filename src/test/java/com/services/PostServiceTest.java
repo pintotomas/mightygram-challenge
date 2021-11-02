@@ -79,11 +79,17 @@ public class PostServiceTest {
     @Test
     void testLikeAlreadyLikedPostThrowsException() {
         when(postRepository.findById(1L)).thenReturn(Optional.of(new Post()));
-        when(userService.findById(1L)).thenReturn(new User());
-        when(userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(true);
+        User user = new User();
+        user.setId(1L);
+        when(userService.findById(1L)).thenReturn(user);
+        when(userPostLikeRepository.
+                existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
+                        (1L, 1L, 1L)).thenReturn(true);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
-        Assertions.assertThrows(UserAlreadyLikesPostException.class, () -> postService.like(1L, userPostLikeRequestDto));
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
+        Assertions.assertThrows(UserAlreadyLikesPostException.class,
+                () -> postService.like(1L, userPostLikeRequestDto));
     }
 
     @Test
@@ -95,7 +101,8 @@ public class PostServiceTest {
         post.setId(1L);
         when(postRepository.findById(1L)).thenReturn(Optional.of(post));
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
         postService.like(1L, userPostLikeRequestDto);
         verify(userPostLikeRepository, times(1)).save(userPostLikeArgumentCaptor.capture());
         verify(postRepository, times(1)).save(postArgumentCaptor.capture());
@@ -106,21 +113,29 @@ public class PostServiceTest {
 
     @Test
     void testDoesntLikePostException() {
-        when(userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(false);
+        when(userPostLikeRepository.
+                existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
+                        (1L, 1L, 1L)).thenReturn(false);
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
-        Assertions.assertThrows(UserDoesNotLikePostException.class, () -> postService.dislike(1L, userPostLikeRequestDto));
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
+        Assertions.assertThrows(UserDoesNotLikePostException.class,
+                () -> postService.dislike(1L, userPostLikeRequestDto));
     }
 
     @Test
     void testDislikePostSuccess() {
 
         UserPostLikeRequestDto userPostLikeRequestDto = new UserPostLikeRequestDto();
-        userPostLikeRequestDto.setUserId(1L);
-        when(userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId(1L, 1L)).thenReturn(true);
+        userPostLikeRequestDto.setLikerId(1L);
+        userPostLikeRequestDto.setOwnerId(1L);
+        when(userPostLikeRepository.
+                existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
+                        (1L, 1L, 1L)).thenReturn(true);
         postService.dislike(1L, userPostLikeRequestDto);
         verify(userPostLikeRepository, times(1)).
-                deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostId(longArgumentCaptor.capture(), longArgumentCaptor.capture());
+                deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeOwnerId
+                        (longArgumentCaptor.capture(), longArgumentCaptor.capture(), longArgumentCaptor.capture());
     }
 
     @Test

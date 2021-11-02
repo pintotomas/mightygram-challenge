@@ -51,18 +51,19 @@ public class PostService {
     @Transactional
     public Post like(Long postId, UserPostLikeRequestDto userPostLikeRequestDto) {
         Post post = this.findById(postId);
-        User user = userService.findById(userPostLikeRequestDto.getUserId());
-        if (userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
-                (userPostLikeRequestDto.getUserId(), postId)) {
+        User liker = userService.findById(userPostLikeRequestDto.getLikerId());
+        User owner = userService.findById(userPostLikeRequestDto.getOwnerId());
+        if (userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
+                (liker.getId(), postId, owner.getId())) {
             log.error
-                    ("User {} has already liked post {}",
-                            userPostLikeRequestDto.getUserId(), postId);
-            throw new UserAlreadyLikesPostException("User " + userPostLikeRequestDto.getUserId()
-                    + " has already liked post " + postId);
+                    ("User {} has already liked post {} from user {}",
+                            userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId());
+            throw new UserAlreadyLikesPostException("User " + userPostLikeRequestDto.getLikerId()
+                    + " has already liked post " + postId + " from the owner " + owner.getId());
         }
 
         userPostLikeRepository.save(new UserPostLike(
-                new UserPostLikeId(user.getId(), post.getId())
+                new UserPostLikeId(liker.getId(), post.getId(), owner.getId())
         ));
         return postRepository.save(post);
     }
@@ -70,17 +71,17 @@ public class PostService {
     //Annotate as transactional so we don't have to add post.removeUserPostLike()
     @Transactional
     public Post dislike(Long postId, UserPostLikeRequestDto userPostLikeRequestDto) {
-        if (!userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
-                (userPostLikeRequestDto.getUserId(), postId)) {
+        if (!userPostLikeRepository.existsByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeIdOwnerId
+                (userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId())) {
             log.error
-                    ("User {} has not liked post {}",
-                            userPostLikeRequestDto.getUserId(), postId);
-            throw new UserDoesNotLikePostException("User " + userPostLikeRequestDto.getUserId()
-                    + " does not like post " + postId);
+                    ("User {} has not liked post {} from owner {}",
+                            userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId());
+            throw new UserDoesNotLikePostException("User " + userPostLikeRequestDto.getLikerId()
+                    + " does not like post " + postId + " from owner " + userPostLikeRequestDto.getOwnerId());
         }
 
-        userPostLikeRepository.deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostId
-                (userPostLikeRequestDto.getUserId(), postId);
+        userPostLikeRepository.deleteByUserPostLikeIdLikerIdAndUserPostLikeIdPostIdAndUserPostLikeOwnerId
+                (userPostLikeRequestDto.getLikerId(), postId, userPostLikeRequestDto.getOwnerId());
         return postRepository.getById(postId);
     }
 

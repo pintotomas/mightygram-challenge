@@ -12,5 +12,9 @@ public class UserPostLikeRequestDto {
 
     @NotNull
     @Min(1)
-    private Long userId;
+    private Long likerId;
+
+    @NotNull
+    @Min(1)
+    private Long ownerId;
 }
